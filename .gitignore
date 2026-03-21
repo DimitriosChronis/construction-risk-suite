@@ -1,0 +1,45 @@
+# Environment
+.env
+.venv/
+env/
+venv/
+
+# Python
+*.pyc
+__pycache__/
+*.egg-info/
+dist/
+build/
+
+# Raw data - never commit
+**data/raw/*.xlsx
+**data/raw/*.xls
+**data/raw/*.csv
+
+# Generated outputs - never commit
+**/results/figures/*.pdf
+**/results/figures/*.png
+**/results/tables/*.csv
+**/results/tables/*.tex
+**/results/tables/*.txt
+**/results/tables/*.json
+**/results/final_analysis/*.csv
+
+# Processed data
+**/data/processed/*.csv
+
+# Paper 3 - not ready yet
+paper3-es-hedging/
+
+# Other root files not needed
+run_all.py
+shared-data/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
