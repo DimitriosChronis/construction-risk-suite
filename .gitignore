@@ -28,8 +28,8 @@ build/
 # Processed data
 **/data/processed/*.csv
 
-# Paper 3 - not ready yet
-paper3-es-hedging/
+paper3-es-hedging/data/raw/*.xlsx
+paper3-es-hedging/data/raw/*.csv
 
 # Other root files not needed
 run_all.py
