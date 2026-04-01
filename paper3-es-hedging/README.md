@@ -2,7 +2,7 @@
 
 **Expected Shortfall, Lifecycle Phasing, and Basis Risk Analysis Using Vine Copulas**
 
-> Chronis, D. (2026). *Tail Risk Quantification and Cross-Border Hedging for Construction Cost Overruns: Expected Shortfall, Lifecycle Phasing, and Basis Risk Analysis Using Vine Copulas*. Submitted to *International Journal of Project Management*, Elsevier.
+> Chronis, D. (2026). *Tail Risk Quantification and Cross-Border Hedging for Construction Cost Overruns: Expected Shortfall, Lifecycle Phasing, and Basis Risk Analysis Using Vine Copulas*. Submitted to *Automation in Construction*, Elsevier.
 
 **Contributions: C3 + C4 + C5**
 
@@ -185,7 +185,7 @@ Net simulation-based hedge benefit: **EUR 45,923** (1.6% of crisis ES) — econo
   title   = {Tail Risk Quantification and Cross-Border Hedging for
              Construction Cost Overruns: Expected Shortfall, Lifecycle
              Phasing, and Basis Risk Analysis Using Vine Copulas},
-  journal = {International Journal of Project Management},
+  journal = {Automation in Construction},
   year    = {2026},
   note    = {under review},
   url     = {https://github.com/dimitrioschronis/construction-risk-suite}
