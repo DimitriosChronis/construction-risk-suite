@@ -164,36 +164,7 @@ fredapi
 
 If you use this code, please cite the relevant paper(s):
 
-```bibtex
-@article{chronis2026paper1,
-  author  = {Chronis, Dimitrios},
-  title   = {From Statistical Error to Profit Erosion:
-             Quantifying Tail Dependence in Construction Cost Overruns},
-  journal = {Journal of Construction Engineering and Management},
-  year    = {2026},
-  note    = {Manuscript No. COENG-19311, under review}
-}
 
-@article{chronis2026paper2,
-  author  = {Chronis, Dimitrios},
-  title   = {Global Commodity Transmission to European Construction
-             Cost Inflation: A Vine Copula Network Topology and
-             VAR-IRF Analysis},
-  journal = {Construction Management and Economics},
-  year    = {2026},
-  note    = {under review}
-}
-
-@article{chronis2026paper3,
-  author  = {Chronis, Dimitrios},
-  title   = {Tail Risk Quantification and Cross-Border Hedging for
-             Construction Cost Overruns: Expected Shortfall, Lifecycle
-             Phasing, and Basis Risk Analysis Using Vine Copulas},
-  journal = {International Journal of Project Management},
-  year    = {2026},
-  note    = {under review}
-}
-```
 
 ---
 
