@@ -21,9 +21,9 @@ This monorepo contains the reproducible code for a five-paper research programme
 |---|-------|--------|---------|--------|
 | 1 | From Statistical Error to Profit Erosion: Quantifying Tail Dependence in Construction Cost Overruns | Under review | ASCE JCEM | [`paper1-profit-erosion/`](paper1-profit-erosion/) |
 | 2 | Global Commodity Transmission to European Construction Cost Inflation: A Vine Copula Network Topology and VAR-IRF Analysis | Under review | Construction Management and Economics | [`paper2-commodity-transmission/`](paper2-commodity-transmission/) |
-| 3 | Tail Risk Quantification and Cross-Border Hedging for Construction Cost Overruns: Expected Shortfall, Lifecycle Phasing, and Basis Risk Analysis Using Vine Copulas | Under review | Automation in Construction | [`paper3-es-hedging/`](paper3-es-hedging/) |
-| 4 | A Hybrid LSTM-Copula Agent for Dynamic Regime Detection and Procurement Optimization in Construction Cost Risk | In preparation |  | — |
-| 5 | Multi-Agent Ecosystem for Construction Supply Chain Risk: Cross-Currency and Cross-Commodity Coordination | In preparation | TBD | — |
+| 3 | An Automated Tail Risk Quantification and Procurement Decision Framework for Construction Cost Overruns: Expected Shortfall, Lifecycle Phasing, and Basis Risk Analysis Using Vine Copulas | Under review | Automation in Construction | [`paper3-es-hedging/`](paper3-es-hedging/) |
+| 4 | Real-Time Regime Detection for Construction Cost Risk: An LSTM-Copula Agent with Explainable Procurement Triggers | In preparation | — | — |
+| 5 | A Multi-Agent Decision Support Architecture for Portfolio-Level Construction Cost Risk: Dynamic Regime Switching and Cross-Project Diversification | In preparation | — | — |
 
 ---
 
@@ -33,7 +33,7 @@ The five papers form a self-contained research programme:
 
 - **Paper 1 — The Problem:** Gaussian models miss tail dependence. EUR 45,806 hidden risk gap erodes 38–48% of contractor net profit.
 - **Paper 2 — The Network:** US commodity shocks transmit to European construction costs with 1–4 month lags. Fuel PPI is the contemporaneous hub; Steel PPI is the primary causal transmitter.
-- **Paper 3 — The Quantification:** Basel III ES(99%) reaches EUR 2.94M in crisis (28% overrun). Hedging via US futures is structurally impossible for 4 of 5 materials due to non-cointegration.
+- **Paper 3 — The Automation:** An automated pipeline ingests live FRED data, computes Basel III ES(99%) via vine copula Monte Carlo, and generates six EUR-denominated procurement rules (R1–R6) without human intervention. Crisis ES reaches EUR 2.94M (28% overrun). Hedging structurally limited for 4/5 materials.
 - **Paper 4 — The Intelligence:** A hybrid LSTM-Copula agent automates regime detection and generates dynamic procurement recommendations in real time.
 - **Paper 5 — The Scale:** Multiple coordinated agents cover the full supply chain across currencies and commodities for global construction portfolios.
 
