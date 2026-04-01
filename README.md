@@ -21,8 +21,8 @@ This monorepo contains the reproducible code for a five-paper research programme
 |---|-------|--------|---------|--------|
 | 1 | From Statistical Error to Profit Erosion: Quantifying Tail Dependence in Construction Cost Overruns | Under review | ASCE JCEM | [`paper1-profit-erosion/`](paper1-profit-erosion/) |
 | 2 | Global Commodity Transmission to European Construction Cost Inflation: A Vine Copula Network Topology and VAR-IRF Analysis | Under review | Construction Management and Economics | [`paper2-commodity-transmission/`](paper2-commodity-transmission/) |
-| 3 | Tail Risk Quantification and Cross-Border Hedging for Construction Cost Overruns: Expected Shortfall, Lifecycle Phasing, and Basis Risk Analysis Using Vine Copulas | Under review | International Journal of Project Management | [`paper3-es-hedging/`](paper3-es-hedging/) |
-| 4 | A Hybrid LSTM-Copula Agent for Dynamic Regime Detection and Procurement Optimization in Construction Cost Risk | In preparation | Automation in Construction | — |
+| 3 | Tail Risk Quantification and Cross-Border Hedging for Construction Cost Overruns: Expected Shortfall, Lifecycle Phasing, and Basis Risk Analysis Using Vine Copulas | Under review | Automation in Construction | [`paper3-es-hedging/`](paper3-es-hedging/) |
+| 4 | A Hybrid LSTM-Copula Agent for Dynamic Regime Detection and Procurement Optimization in Construction Cost Risk | In preparation |  | — |
 | 5 | Multi-Agent Ecosystem for Construction Supply Chain Risk: Cross-Currency and Cross-Commodity Coordination | In preparation | TBD | — |
 
 ---
