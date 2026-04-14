@@ -1,41 +1,66 @@
-# Construction Cost Risk — Global Risk Suite
+# Global Construction Risk Intelligence Suite
 
-> **A copula-based framework for quantifying, transmitting, and hedging systemic tail risk in construction project portfolios.**
+> **An 8-paper research programme on automated construction cost risk: from tail dependence quantification to global megaproject intelligence.**
 
 Dimitrios Chronis — School of Civil Engineering, National Technical University of Athens (NTUA)
 ORCID: [0009-0001-9557-4175](https://orcid.org/0009-0001-9557-4175)
+Email: dimitrischronis7@gmail.com
 
 ---
 
 ## Overview
 
-This monorepo contains the reproducible code for a five-paper research programme on construction cost risk. The framework applies vine copula models, VAR transmission analysis, and Monte Carlo simulation to Greek ELSTAT construction price indices (2000–2024), demonstrating that standard industry risk methods systematically underestimate extreme downside exposure.
+This monorepo contains the reproducible code for an 8-paper research series on construction cost risk intelligence. The framework applies vine copula models, LSTM ensemble agents, VAR transmission analysis, and Monte Carlo simulation to construction price indices (2000–2024), demonstrating that standard industry risk methods systematically underestimate extreme downside exposure.
 
-**Core thesis:** Independence and Gaussian assumptions used in traditional Monte Carlo ignore tail dependence between construction materials. During systemic crises (2008 GFC, 2021–2022 energy shock), this produces systematic capital shortfalls that propagate across project phases and national borders — and can be quantified, predicted, and ultimately automated.
+**Core thesis:** Independence and Gaussian assumptions used in traditional Monte Carlo ignore tail dependence between construction materials. During systemic crises (2008 GFC, 2021–2022 energy shock), this produces systematic capital shortfalls that propagate across project phases and national borders — and can be quantified, predicted, and ultimately automated with 13–16 months of early warning.
 
 ---
 
-## The Five Papers
+## The Research Series
 
 | # | Title | Status | Journal | Folder |
 |---|-------|--------|---------|--------|
-| 1 | From Statistical Error to Profit Erosion: Quantifying Tail Dependence in Construction Cost Overruns | Under review | ASCE JCEM | [`paper1-profit-erosion/`](paper1-profit-erosion/) |
-| 2 | Global Commodity Transmission to European Construction Cost Inflation: A Vine Copula Network Topology and VAR-IRF Analysis | Under review | Construction Management and Economics | [`paper2-commodity-transmission/`](paper2-commodity-transmission/) |
-| 3 | An Automated Tail Risk Quantification and Procurement Decision Framework for Construction Cost Overruns: Expected Shortfall, Lifecycle Phasing, and Basis Risk Analysis Using Vine Copulas | Under review | Automation in Construction | [`paper3-es-hedging/`](paper3-es-hedging/) |
-| 4 | Real-Time Regime Detection for Construction Cost Risk: An LSTM-Copula Agent with Explainable Procurement Triggers | In preparation | — | — |
-| 5 | A Multi-Agent Decision Support Architecture for Portfolio-Level Construction Cost Risk: Dynamic Regime Switching and Cross-Project Diversification | In preparation | — | — |
+| 1 | From Statistical Error to Profit Erosion: Quantifying Tail Dependence in Construction Cost Overruns Using Gumbel Copulas | Under Review | JCEM (ASCE) | [`paper1-profit-erosion/`](paper1-profit-erosion/) |
+| 2 | Global Commodity Transmission to European Construction Cost Inflation: A Vine Copula Network Topology and VAR-IRF Analysis | Under Review | Construction Management and Economics | [`paper2-commodity-transmission/`](paper2-commodity-transmission/) |
+| 3 | An Automated Tail Risk Quantification and Procurement Decision Framework for Construction Cost Overruns: Expected Shortfall, Lifecycle Phasing, and Basis Risk Analysis Using Vine Copulas | Under Review | Journal of Building Engineering | [`paper3-es-hedging/`](paper3-es-hedging/) |
+| 4 | Real-Time Regime Detection for Construction Cost Risk: An LSTM-Copula Agent with Explainable Procurement Triggers | Under Review | Automation in Construction (IF 14.4) | [`paper4-lstm-agent/`](paper4-lstm-agent/) |
+| 5 | Systemic Risk Contagion in Construction Cost Portfolios: A Dynamic Vine Copula Network Approach to Cross-Project Tail Dependence | In preparation | Automation in Construction | — |
+| 6 | Pan-European Construction Cost Risk Intelligence: Vine Copula-LSTM Validation Across Southern European Markets | In preparation | CME / EJOR | — |
+| 7 | Multi-Currency Construction Cost Intelligence for Global Megaproject Portfolios: Shanghai Steel, Gulf Construction, and FX Volatility | In preparation | IJPM / JCEM | — |
+| 8 | A Three-Layer Cascade Theory of Global Construction Cost Crises: Financial Markets, Commodity Networks, and Domestic Prices | In preparation | EJOR | — |
 
 ---
 
 ## Research Narrative
 
-The five papers form a self-contained research programme:
+Each paper answers one question and opens the next:
 
-- **Paper 1 — The Problem:** Gaussian models miss tail dependence. EUR 45,806 hidden risk gap erodes 38–48% of contractor net profit.
-- **Paper 2 — The Network:** US commodity shocks transmit to European construction costs with 1–4 month lags. Fuel PPI is the contemporaneous hub; Steel PPI is the primary causal transmitter.
-- **Paper 3 — The Automation:** An automated pipeline ingests live FRED data, computes Basel III ES(99%) via vine copula Monte Carlo, and generates six EUR-denominated procurement rules (R1–R6) without human intervention. Crisis ES reaches EUR 2.94M (28% overrun). Hedging structurally limited for 4/5 materials.
-- **Paper 4 — The Intelligence:** A hybrid LSTM-Copula agent automates regime detection and generates dynamic procurement recommendations in real time.
-- **Paper 5 — The Scale:** Multiple coordinated agents cover the full supply chain across currencies and commodities for global construction portfolios.
+```
+P1: "The problem is bigger than you think"     → Tail dependence exists
+P2: "It comes from there"                      → US→Greek transmission mapped
+P3: "Quantify it and automate the response"    → ES(99%) + 6 procurement rules
+P4: "See it 16 months before it arrives"       → LSTM agent AUC = 0.926
+P5: "Scale to the full portfolio"              → Cross-project contagion
+P6: "Valid across all of Europe"               → Pan-EU risk index
+P7: "Valid anywhere in the world"              → Dubai, London, Singapore
+P8: "It is a universal law"                    → Financial → Commodity → Construction
+```
+
+---
+
+## Key Results (Papers 1–4)
+
+| Paper | Key Finding | Value |
+|-------|------------|-------|
+| P1 | Hidden tail risk gap vs Gaussian | EUR 45,806 per project |
+| P2 | US→Greek transmission lag | Steel: 4M, Fuel: 1M |
+| P3 | Crisis ES(99%) overrun | EUR 2.94M (+28%) |
+| P3 | Superstructure phase overrun risk | +14.2% (bootstrap CI confirmed) |
+| P4 | **LSTM ensemble AUC** | **0.926 [95% CI: 0.854–0.983]** |
+| P4 | **GFC 2008 early warning** | **13 months before peak** |
+| P4 | **COVID 2021 early warning** | **16 months before peak** |
+| P4 | Economic saving vs static rules | EUR 4,001,160 over 72 months |
+| P4 | False alarm reduction | 89% (1 vs 9 false alarms) |
 
 ---
 
@@ -43,32 +68,52 @@ The five papers form a self-contained research programme:
 
 ```
 construction-risk-suite/
-├── README.md                              ← you are here
+├── README.md
 ├── .gitignore
-├── requirements.txt                       # Combined dependencies (all papers)
+├── requirements.txt
 ├── shared-data/
-│   └── README.md                          # ELSTAT + FRED data source guide
-├── paper1-profit-erosion/                 # Paper 1: Gumbel copula tail risk
+│   └── README.md                    # ELSTAT + FRED data source guide
+├── paper1-profit-erosion/           # Gumbel copula tail risk
 │   ├── README.md
-│   ├── src/                               # 12 analysis scripts
-│   ├── data/
-│   └── results/
-│       ├── tables/
-│       └── figures/
-├── paper2-commodity-transmission/         # Paper 2: VAR/IRF network topology
+│   ├── src/                         # 12 analysis scripts
+│   ├── data/raw/.gitkeep
+│   ├── data/processed/.gitkeep
+│   └── results/.gitkeep
+├── paper2-commodity-transmission/   # VAR/IRF network topology
 │   ├── README.md
-│   ├── src/                               # 11 analysis scripts
-│   ├── data/
-│   └── results/
-│       ├── tables/
-│       └── figures/
-└── paper3-es-hedging/                     # Paper 3: ES + lifecycle + hedging
+│   ├── src/                         # 11 analysis scripts
+│   ├── data/raw/.gitkeep
+│   ├── data/processed/.gitkeep
+│   └── results/.gitkeep
+├── paper3-es-hedging/               # ES + lifecycle + hedging
+│   ├── README.md
+│   ├── src/                         # 17 analysis scripts
+│   ├── data/raw/.gitkeep
+│   ├── data/processed/.gitkeep
+│   └── results/.gitkeep
+└── paper4-lstm-agent/               # LSTM-Copula agent
     ├── README.md
-    ├── src/                               # 17 analysis scripts
-    ├── data/
-    └── results/
-        ├── tables/
-        └── figures/
+    ├── src/                         # 16 scripts + utils.py
+    │   ├── utils.py
+    │   ├── 01_data_preparation.py
+    │   ├── 02_lstm_regime_classification.py
+    │   ├── 03_shap_explanations.py
+    │   ├── 04_walk_forward_validation.py
+    │   ├── 05_benchmarks.py
+    │   ├── 06_bootstrap_auc.py
+    │   ├── 07_robustness_checks.py
+    │   ├── 08_rule6_comparison.py
+    │   ├── 09_calibration.py
+    │   ├── 10_granger_causality.py
+    │   ├── 11_crisis_backtests.py
+    │   ├── 12_decision_rules.py
+    │   ├── 13_economic_value.py
+    │   ├── 14_ablation_study.py
+    │   ├── 15_temporal_shap.py
+    │   └── 16_publication_figures.py
+    ├── data/raw/.gitkeep
+    ├── data/processed/.gitkeep
+    └── results/.gitkeep
 ```
 
 ---
@@ -81,77 +126,93 @@ git clone https://github.com/dimitrioschronis/construction-risk-suite
 cd construction-risk-suite
 pip install -r requirements.txt
 
-# Run Paper 1
-cd paper1-profit-erosion
-python src/01_data_processing.py
-# ... see each paper's README for full pipeline
+# Run Paper 4 (LSTM Agent) — recommended entry point
+cd paper4-lstm-agent/src
+python run_all.py        # Runs all 16 scripts sequentially (~67 min)
 
-# Run Paper 2
-cd ../paper2-commodity-transmission
-python src/01_global_data_download.py
-python src/02_align_datasets.py
-# ... see paper2 README for full pipeline
+# Or run individual scripts:
+python 01_data_preparation.py
+python 02_lstm_regime_classification.py
+# ... see paper4 README for full pipeline
+```
 
-# Run Paper 3
-cd ../paper3-es-hedging
-python src/01_global_data_download.py
-# ... see paper3 README for full pipeline
+---
+
+## Paper 4 — LSTM Agent Pipeline
+
+```
+01_data_preparation.py          → Feature engineering (20 features, 294 obs)
+02_lstm_regime_classification.py → 4×4 AUC matrix (materials × lead times)
+03_shap_explanations.py         → KernelSHAP feature attribution
+04_walk_forward_validation.py   → Expanding window OOS validation
+05_benchmarks.py                → 6-model DeLong comparison
+06_bootstrap_auc.py             → Bootstrap CI (B=1,000) + permutation test
+07_robustness_checks.py         → Sensitivity: lead/lookback/threshold
+08_rule6_comparison.py          → Paper 3 vs Paper 4 + Youden's J
+09_calibration.py               → Isotonic regression (ECE: 0.199→0.123)
+10_granger_causality.py         → Bivariate Granger: US PPI → Greek vol
+11_crisis_backtests.py          → GFC 2008 (13M lead) + COVID 2021 (16M lead)
+12_decision_rules.py            → Adaptive rules R1–R8
+13_economic_value.py            → EUR simulation: saving EUR 4,001,160
+14_ablation_study.py            → Component contribution analysis
+15_temporal_shap.py             → Quarterly SHAP evolution
+16_publication_figures.py       → All publication figures
+```
+
+---
+
+## Global Parameters
+
+```python
+# Paper 4 (LSTM Agent)
+SEED             = 42
+ENSEMBLE_SEEDS   = [42, 43, 44, 45, 46]
+LOOKBACK         = 6       # months of US history as LSTM input
+LEAD             = 2       # months ahead to predict
+N_FEATURES       = 20      # all features (ablation confirmed)
+OPT_THRESHOLD    = 0.875   # Youden's J optimal
+CRISIS_PCT       = 0.75    # P75 for crisis definition
+HIDDEN_SIZE      = 64
+N_LAYERS         = 2
+DROPOUT          = 0.3
+LR               = 5e-4
+PATIENCE         = 20
+
+# Papers 1–3 (Copula)
+BASE_COST        = 2_300_000   # EUR
+HORIZON          = 24          # months
+N_SIMS           = 100_000     # Monte Carlo paths
+CONFIDENCE       = 0.99        # ES level
+BOOTSTRAP_REPS   = 500
 ```
 
 ---
 
 ## Data Sources
 
-All papers use the same underlying datasets:
+| Source | Series | Access | Papers |
+|--------|--------|--------|--------|
+| [ELSTAT SPC23](https://www.statistics.gr/en/statistics/-/publication/SPC23/) | Greek construction cost indices (monthly 2000–2024) | Manual download | 1, 2, 3, 4 |
+| [FRED](https://fred.stlouisfed.org) | US PPIs: Steel (WPU1017), Cement (WPU1321), Fuel (WPU0553), PVC (WPU0911), Brent (DCOILBRENTEU) | API (automated) | 2, 3, 4 |
 
-| Source | Series | Access | Used in |
-|--------|--------|--------|---------|
-| [ELSTAT SPC23](https://www.statistics.gr/en/statistics/-/publication/SPC23/) | Greek construction cost indices (5 series, monthly 2000–2024) | Manual download | Papers 1, 2, 3 |
-| [FRED](https://fred.stlouisfed.org) | US commodity PPIs (Brent, Steel, Cement, PVC, Fuel) | API (auto) | Papers 2, 3 |
-| [FRED](https://fred.stlouisfed.org) | EU construction indices (DE, FR, IT, ES) | API (auto) | Paper 2 |
-
-Raw data files are not committed to this repository. See [`shared-data/README.md`](shared-data/README.md) for download instructions and FRED API setup.
-
----
-
-## Key Contributions
-
-| ID | Contribution | Paper |
-|----|-------------|-------|
-| C1 | 10-D R-vine copula network topology — US Fuel PPI as dominant hub, post-COVID structural reorganisation | 2 |
-| C2 | VAR/IRF/FEVD transmission mechanism — Steel 4M lag, Cement 1M lag, structural breaks | 2 |
-| C3 | Basel III ES(99%) via vine copula Monte Carlo — 7.2× Gumbel premium in crisis vs stable | 3 |
-| C4 | Lifecycle phase decomposition — superstructure phase +14.2% overrun, bootstrap CIs | 3 |
-| C5 | Cross-border hedging — structural basis risk via Engle-Granger, HE < 3% for 4/5 materials | 3 |
-| C6 | Cross-EU robustness — 7/8 US→EU Granger pairs significant | 2 |
-
----
-
-## Global Parameters
-
-All scripts share these global parameters:
-
-```python
-SEED           = 42
-BASE_COST      = 2_300_000    # EUR
-HORIZON        = 24           # months
-N_SIMS         = 100_000      # Monte Carlo simulations
-CONFIDENCE     = 0.99         # ES level (Paper 3)
-ROLLING_WINDOW = 24           # months
-BOOTSTRAP_REPS = 500          # Paper 3 lifecycle CIs
-MAX_LAG        = 8            # VAR lag selection
-```
+Raw data files are not committed. See [`shared-data/README.md`](shared-data/README.md) for download instructions.
 
 ---
 
 ## Dependencies
 
-See [`requirements.txt`](requirements.txt) for pinned versions. Key packages:
-
+```bash
+pip install -r requirements.txt
 ```
+
+Key packages:
+```
+torch>=2.0
+shap>=0.44
+xgboost>=1.7
+scikit-learn>=1.3
 pyvinecopulib==0.7.5
 statsmodels>=0.14
-scipy>=1.11
 pandas>=2.0
 numpy>=1.25
 matplotlib>=3.7
@@ -162,9 +223,7 @@ fredapi
 
 ## Citation
 
-If you use this code, please cite the relevant paper(s):
-
-
+If you use this code, please cite the relevant paper
 
 ---
 
