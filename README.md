@@ -31,23 +31,6 @@ This monorepo contains the reproducible code for an 8-paper research series on c
 
 ---
 
-## Research Narrative
-
-Each paper answers one question and opens the next:
-
-```
-P1: "The problem is bigger than you think"     → Tail dependence exists
-P2: "It comes from there"                      → US→Greek transmission mapped
-P3: "Quantify it and automate the response"    → ES(99%) + 6 procurement rules
-P4: "See it 16 months before it arrives"       → LSTM agent AUC = 0.926
-P5: "Scale to the full portfolio"              → Cross-project contagion
-P6: "Valid across all of Europe"               → Pan-EU risk index
-P7: "Valid anywhere in the world"              → Dubai, London, Singapore
-P8: "It is a universal law"                    → Financial → Commodity → Construction
-```
-
----
-
 ## Key Results (Papers 1–4)
 
 | Paper | Key Finding | Value |
