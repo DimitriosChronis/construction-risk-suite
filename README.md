@@ -24,10 +24,10 @@ This monorepo contains the reproducible code for an 8-paper research series on c
 | 2 | Global Commodity Transmission to European Construction Cost Inflation: A Vine Copula Network Topology and VAR-IRF Analysis | Under Review | Construction Management and Economics | [`paper2-commodity-transmission/`](paper2-commodity-transmission/) |
 | 3 | An Automated Tail Risk Quantification and Procurement Decision Framework for Construction Cost Overruns: Expected Shortfall, Lifecycle Phasing, and Basis Risk Analysis Using Vine Copulas | Under Review | Journal of Building Engineering | [`paper3-es-hedging/`](paper3-es-hedging/) |
 | 4 | Real-Time Regime Detection for Construction Cost Risk: An LSTM-Copula Agent with Explainable Procurement Triggers | Under Review | Automation in Construction (IF 14.4) | [`paper4-lstm-agent/`](paper4-lstm-agent/) |
-| 5 | Systemic Risk Contagion in Construction Cost Portfolios: A Dynamic Vine Copula Network Approach to Cross-Project Tail Dependence | In preparation | Automation in Construction | — |
-| 6 | Pan-European Construction Cost Risk Intelligence: Vine Copula-LSTM Validation Across Southern European Markets | In preparation | CME / EJOR | — |
-| 7 | Multi-Currency Construction Cost Intelligence for Global Megaproject Portfolios: Shanghai Steel, Gulf Construction, and FX Volatility | In preparation | IJPM / JCEM | — |
-| 8 | A Three-Layer Cascade Theory of Global Construction Cost Crises: Financial Markets, Commodity Networks, and Domestic Prices | In preparation | EJOR | — |
+| 5 | Systemic Risk Contagion in Construction Cost Portfolios: A Dynamic Vine Copula Network Approach to Cross-Project Tail Dependence | In preparation | — | — |
+| 6 | Pan-European Construction Cost Risk Intelligence: Vine Copula-LSTM Validation Across Southern European Markets | In preparation | — | — |
+| 7 | Multi-Currency Construction Cost Intelligence for Global Megaproject Portfolios: Shanghai Steel, Gulf Construction, and FX Volatility | — | — | — |
+| 8 | A Three-Layer Cascade Theory of Global Construction Cost Crises: Financial Markets, Commodity Networks, and Domestic Prices | In preparation | — | — |
 
 ---
 
