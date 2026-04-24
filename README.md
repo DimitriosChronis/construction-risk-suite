@@ -4,7 +4,7 @@
 
 Dimitrios Chronis — School of Civil Engineering, National Technical University of Athens (NTUA)
 ORCID: [0009-0001-9557-4175](https://orcid.org/0009-0001-9557-4175)
-Email: dimitrischronis7@gmail.com
+Email: cv23006@mail.ntua.gr
 
 ---
 
@@ -18,16 +18,18 @@ This monorepo contains the reproducible code for an 8-paper research series on c
 
 ## The Research Series
 
-| # | Title | Status | Journal | Folder |
-|---|-------|--------|---------|--------|
-| 1 | From Statistical Error to Profit Erosion: Quantifying Tail Dependence in Construction Cost Overruns Using Gumbel Copulas | Under Review | JCEM (ASCE) | [`paper1-profit-erosion/`](paper1-profit-erosion/) |
-| 2 | Global Commodity Transmission to European Construction Cost Inflation: A Vine Copula Network Topology and VAR-IRF Analysis | Under Review | Construction Management and Economics | [`paper2-commodity-transmission/`](paper2-commodity-transmission/) |
-| 3 | An Automated Tail Risk Quantification and Procurement Decision Framework for Construction Cost Overruns: Expected Shortfall, Lifecycle Phasing, and Basis Risk Analysis Using Vine Copulas | Under Review | Journal of Building Engineering | [`paper3-es-hedging/`](paper3-es-hedging/) |
-| 4 | Real-Time Regime Detection for Construction Cost Risk: An LSTM-Copula Agent with Explainable Procurement Triggers | Under Review | Automation in Construction (IF 14.4) | [`paper4-lstm-agent/`](paper4-lstm-agent/) |
-| 5 | Systemic Risk Contagion in Construction Cost Portfolios: A Dynamic Vine Copula Network Approach to Cross-Project Tail Dependence | In preparation | — | — |
-| 6 | Pan-European Construction Cost Risk Intelligence: Vine Copula-LSTM Validation Across Southern European Markets | In preparation | — | — |
-| 7 | Multi-Currency Construction Cost Intelligence for Global Megaproject Portfolios: Shanghai Steel, Gulf Construction, and FX Volatility | — | — | — |
-| 8 | A Three-Layer Cascade Theory of Global Construction Cost Crises: Financial Markets, Commodity Networks, and Domestic Prices | — | — | — |
+| # | Title | Status | Folder |
+|---|-------|--------|--------|
+| 1 | From Statistical Error to Profit Erosion: Quantifying Tail Dependence in Construction Cost Overruns Using Gumbel Copulas | Under Review | [`paper1-profit-erosion/`](paper1-profit-erosion/) |
+| 2 | Global Commodity Transmission to European Construction Cost Inflation: A Vine Copula Network Topology and VAR-IRF Analysis | Under Review | [`paper2-commodity-transmission/`](paper2-commodity-transmission/) |
+| 3 | A Data-Driven Decision Support System for Construction Cost Risk Management: Integrating Tail Risk Analytics with Lifecycle-Phased Procurement Planning | Under Review | [`paper3-es-hedging/`](paper3-es-hedging/) |
+| 4 | Real-Time Regime Detection for Construction Cost Risk: An LSTM-Copula Agent with Explainable Procurement Triggers | Under Review | [`paper4-lstm-agent/`](paper4-lstm-agent/) |
+| 5 | Systemic Risk Contagion in Construction Cost Portfolios: A Dynamic Vine Copula Network Approach to Cross-Project Tail Dependence | In preparation | — |
+| 6 | Pan-European Construction Cost Risk Intelligence: Vine Copula-LSTM Validation Across Southern European Markets | In preparation | — |
+| 7 | Multi-Currency Construction Cost Intelligence for Global Megaproject Portfolios: Shanghai Steel, Gulf Construction, and FX Volatility | Planned | — |
+| 8 | A Three-Layer Cascade Theory of Global Construction Cost Crises: Financial Markets, Commodity Networks, and Domestic Prices | Planned | — |
+
+*Note: Journal submission details are omitted during active peer review.*
 
 ---
 
@@ -39,9 +41,9 @@ This monorepo contains the reproducible code for an 8-paper research series on c
 | P2 | US→Greek transmission lag | Steel: 4M, Fuel: 1M |
 | P3 | Crisis ES(99%) overrun | EUR 2.94M (+28%) |
 | P3 | Superstructure phase overrun risk | +14.2% (bootstrap CI confirmed) |
-| P4 | **LSTM ensemble AUC** | **0.926 [95% CI: 0.854–0.983]** |
-| P4 | **GFC 2008 early warning** | **13 months before peak** |
-| P4 | **COVID 2021 early warning** | **16 months before peak** |
+| P4 | LSTM ensemble AUC | 0.926 [95% CI: 0.854–0.983] |
+| P4 | GFC 2008 early warning | 13 months before peak |
+| P4 | COVID 2021 early warning | 16 months before peak |
 | P4 | Economic saving vs static rules | EUR 4,001,160 over 72 months |
 | P4 | False alarm reduction | 89% (1 vs 9 false alarms) |
 
@@ -68,9 +70,9 @@ construction-risk-suite/
 │   ├── data/raw/.gitkeep
 │   ├── data/processed/.gitkeep
 │   └── results/.gitkeep
-├── paper3-es-hedging/               # ES + lifecycle + hedging
+├── paper3-es-hedging/               # ES + lifecycle + hedging (DSS)
 │   ├── README.md
-│   ├── src/                         # 17 analysis scripts
+│   ├── src/                         # 16 analysis scripts
 │   ├── data/raw/.gitkeep
 │   ├── data/processed/.gitkeep
 │   └── results/.gitkeep
@@ -109,37 +111,63 @@ git clone https://github.com/dimitrioschronis/construction-risk-suite
 cd construction-risk-suite
 pip install -r requirements.txt
 
-# Run Paper 4 (LSTM Agent) — recommended entry point
+# Run Paper 3 (ES + Lifecycle + Hedging DSS)
+cd paper3-es-hedging/src
+python 05_expected_shortfall.py
+python 06_lifecycle_phasing.py
+python 07_hedging_quantification.py
+# Full pipeline runs in approximately 15 minutes
+
+# Run Paper 4 (LSTM Agent) — recommended entry point for ML pipeline
 cd paper4-lstm-agent/src
 python run_all.py        # Runs all 16 scripts sequentially (~67 min)
-
-# Or run individual scripts:
-python 01_data_preparation.py
-python 02_lstm_regime_classification.py
-# ... see paper4 README for full pipeline
 ```
 
 ---
 
-## Paper 4 — LSTM Agent Pipeline
+## Paper 3 — DSS Pipeline (16 scripts)
 
 ```
-01_data_preparation.py          → Feature engineering (20 features, 294 obs)
+01_global_data_download.py       → FRED API data retrieval
+02_align_datasets.py             → Merge GR + US data
+05_expected_shortfall.py         → ES under 3 copulas × 3 regimes
+05b_rolling_es_backtest.py       → Rolling 24M ES + backtest
+05c_regime_switching_es.py       → Stable vs Crisis ES
+05d_es_backtest_formal.py        → Kupiec + Christoffersen tests
+05e_decision_rules.py            → Automated rules R1–R6
+05f_es_decomposition.py          → Marginal ES contributions
+06_lifecycle_phasing.py          → Phase-specific ES
+06b_bootstrap_ci.py              → Bootstrap CI (B=500)
+06c_phase_sensitivity.py         → Weight sensitivity ±10pp
+07_hedging_quantification.py     → Joint 6D vine hedge
+07b_hedge_effectiveness.py       → Static + rolling HE
+07c_basis_risk_breakeven.py      → Basis risk gap analysis
+07d_cointegration_test.py        → Engle–Granger tests
+07e_rolling_correlation.py       → Rolling ρ and τ
+08_publication_figures.py        → All figures
+```
+
+---
+
+## Paper 4 — LSTM Agent Pipeline (16 scripts)
+
+```
+01_data_preparation.py           → Feature engineering (20 features, 294 obs)
 02_lstm_regime_classification.py → 4×4 AUC matrix (materials × lead times)
-03_shap_explanations.py         → KernelSHAP feature attribution
-04_walk_forward_validation.py   → Expanding window OOS validation
-05_benchmarks.py                → 6-model DeLong comparison
-06_bootstrap_auc.py             → Bootstrap CI (B=1,000) + permutation test
-07_robustness_checks.py         → Sensitivity: lead/lookback/threshold
-08_rule6_comparison.py          → Paper 3 vs Paper 4 + Youden's J
-09_calibration.py               → Isotonic regression (ECE: 0.199→0.123)
-10_granger_causality.py         → Bivariate Granger: US PPI → Greek vol
-11_crisis_backtests.py          → GFC 2008 (13M lead) + COVID 2021 (16M lead)
-12_decision_rules.py            → Adaptive rules R1–R8
-13_economic_value.py            → EUR simulation: saving EUR 4,001,160
-14_ablation_study.py            → Component contribution analysis
-15_temporal_shap.py             → Quarterly SHAP evolution
-16_publication_figures.py       → All publication figures
+03_shap_explanations.py          → KernelSHAP feature attribution
+04_walk_forward_validation.py    → Expanding window OOS validation
+05_benchmarks.py                 → 6-model DeLong comparison
+06_bootstrap_auc.py              → Bootstrap CI (B=1,000) + permutation test
+07_robustness_checks.py          → Sensitivity: lead/lookback/threshold
+08_rule6_comparison.py           → Paper 3 vs Paper 4 + Youden's J
+09_calibration.py                → Isotonic regression (ECE: 0.199→0.123)
+10_granger_causality.py          → Bivariate Granger: US PPI → Greek vol
+11_crisis_backtests.py           → GFC 2008 (13M lead) + COVID 2021 (16M lead)
+12_decision_rules.py             → Adaptive rules R1–R8
+13_economic_value.py             → EUR simulation: saving EUR 4,001,160
+14_ablation_study.py             → Component contribution analysis
+15_temporal_shap.py              → Quarterly SHAP evolution
+16_publication_figures.py        → All publication figures
 ```
 
 ---
@@ -206,7 +234,7 @@ fredapi
 
 ## Citation
 
-If you use this code, please cite the relevant paper
+If you use this code, please cite the relevant paper. Citation details will be updated upon publication.
 
 ---
 
