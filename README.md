@@ -72,7 +72,7 @@ construction-risk-suite/
 │   └── results/.gitkeep
 ├── paper3-es-hedging/               # ES + lifecycle + hedging (DSS)
 │   ├── README.md
-│   ├── src/                         # 17 analysis scripts
+│   ├── src/                         # 16 analysis scripts
 │   ├── data/raw/.gitkeep
 │   ├── data/processed/.gitkeep
 │   └── results/.gitkeep
@@ -125,7 +125,7 @@ python run_all.py        # Runs all 16 scripts sequentially (~67 min)
 
 ---
 
-## Paper 3 — DSS Pipeline (17 scripts)
+## Paper 3 — DSS Pipeline (16 scripts)
 
 ```
 01_global_data_download.py       → FRED API data retrieval
