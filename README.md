@@ -4,7 +4,7 @@
 
 Dimitrios Chronis — School of Civil Engineering, National Technical University of Athens (NTUA)
 ORCID: [0009-0001-9557-4175](https://orcid.org/0009-0001-9557-4175)
-Email: cv23006@mail.ntua.gr
+Email: cv23006@mail.ntua.gr , dimitrischronis7@gmail.com
 
 ---
 
