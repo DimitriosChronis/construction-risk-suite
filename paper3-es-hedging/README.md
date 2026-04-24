@@ -1,8 +1,8 @@
-# Paper 3: Tail Risk Quantification and Cross-Border Hedging for Construction Cost Overruns
+# Paper 3: A Data-Driven Decision Support System for Construction Cost Risk Management
 
-**Expected Shortfall, Lifecycle Phasing, and Basis Risk Analysis Using Vine Copulas**
+**Integrating Tail Risk Analytics with Lifecycle-Phased Procurement Planning**
 
-> Chronis, D. (2026). *An Automated Tail Risk Quantification and Procurement Decision Framework for Construction Cost Overruns: Expected Shortfall, Lifecycle Phasing, and Basis Risk Analysis Using Vine Copulas*. Submitted to *Journal of Building Engineering*, Elsevier.
+> Chronis, D. (2026). *A Data-Driven Decision Support System for Construction Cost Risk Management: Integrating Tail Risk Analytics with Lifecycle-Phased Procurement Planning*. Manuscript under review.
 
 **Contributions: C3 + C4 + C5**
 
@@ -10,7 +10,7 @@
 
 ## Scope
 
-- **C3** — Basel III Expected Shortfall ES(99%) via 4-D Gumbel vine copula Monte Carlo. Regime-conditional analysis (stable 2014–2019 vs crisis 2021–2024). Gumbel premium 6× larger in crisis than stable. Formal Kupiec + Christoffersen backtesting.
+- **C3** — Basel III Expected Shortfall ES(99%) via 4-D Gumbel vine copula Monte Carlo. Regime-conditional analysis (stable 2014–2019 vs crisis 2021–2024). Gumbel premium 6× larger in crisis than stable. Formal Kupiec + Christoffersen backtesting. Industry-standard contingency comparison demonstrating systematic under-reservation by flat-rate methods (5–10% of base cost cover only 18–36% of crisis tail risk).
 - **C4** — Construction lifecycle phase decomposition: Foundation (8M), Superstructure (10M), Completion (6M). Phase-specific ES with bootstrap 95% CIs (B=500). Superstructure phase carries +14.2% overrun risk.
 - **C5** — Cross-border hedging analysis: OLS hedge ratios, rolling hedge effectiveness, Engle–Granger cointegration, basis risk gap quantification. Steel only pair achieving HE = 25.5%; collapses to 2.7% in crisis.
 
@@ -18,7 +18,7 @@
 
 ## Key Finding
 
-This paper reveals that **tail risk is regime-conditional, phase-heterogeneous, and structurally unhedgeable**:
+This paper reveals that **tail risk is regime-conditional, phase-heterogeneous, and structurally unhedgeable** — and provides an automated Decision Support System (DSS) that translates these findings into operational procurement triggers.
 
 | Finding | Result |
 |---------|--------|
@@ -27,6 +27,8 @@ This paper reveals that **tail risk is regime-conditional, phase-heterogeneous, 
 | Dominant tail risk driver | Fuel/Energy: 53% of tail losses despite 20% weight (4.28× amplification) |
 | Highest-risk phase | Superstructure: ES99 = EUR 1,313,153, +14.2% overrun |
 | Hedging | Steel HE = 25.5% full period → 2.7% in crisis. 4/5 pairs non-cointegrated |
+| Industry practice gap | 5–10% flat contingency covers only 18–36% of crisis tail risk |
+| DSS pipeline runtime | ~15 minutes on standard hardware |
 | Policy implication | Contractual risk transfer dominates financial hedging for small open economies |
 
 ---
@@ -143,6 +145,17 @@ ROLLING_WINDOW = 24           # months
 | Concrete | 30% | EUR 97,498 | 15% | 1.17× |
 | PVC | 20% | EUR 86,671 | 8% | 1.15× |
 
+**Industry contingency comparison (crisis regime, 28% tail overrun = EUR 644,866):**
+
+| Method | Contingency | Coverage | Verdict |
+|--------|-------------|----------|---------|
+| 5% flat | EUR 115,000 | 17.8% | FAIL |
+| 10% flat | EUR 230,000 | 35.7% | FAIL |
+| P85 Gaussian | EUR 216,618 | 33.6% | FAIL |
+| P99 Gaussian | EUR 319,163 | 49.5% | FAIL |
+| ES(99%) Gaussian | EUR 346,364 | 53.7% | PARTIAL |
+| **ES(99%) Gumbel (proposed)** | **EUR 644,866** | **100%** | **ADEQUATE** |
+
 ### C4 — Lifecycle Phase ES (Gumbel, crisis regime)
 
 | Phase | Budget | Months | ES(99%) | Overrun | Bootstrap 95% CI |
@@ -182,13 +195,11 @@ Net simulation-based hedge benefit: **EUR 45,923** (1.6% of crisis ES) — econo
 ```bibtex
 @article{chronis2026paper3,
   author  = {Chronis, Dimitrios},
-  title   = {An Automated Tail Risk Quantification and Procurement
-             Decision Framework for Construction Cost Overruns:
-             Expected Shortfall, Lifecycle Phasing, and Basis Risk
-             Analysis Using Vine Copulas},
-  journal = {Journal of Building Engineering},
+  title   = {A Data-Driven Decision Support System for Construction
+             Cost Risk Management: Integrating Tail Risk Analytics
+             with Lifecycle-Phased Procurement Planning},
   year    = {2026},
-  note    = {under review},
+  note    = {Manuscript under review},
   url     = {https://github.com/dimitrioschronis/construction-risk-suite}
 }
 ```
