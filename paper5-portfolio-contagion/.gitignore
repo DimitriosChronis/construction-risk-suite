@@ -1,0 +1,156 @@
+# ============================================================
+#  Paper 5: Portfolio Contagion -- .gitignore
+#
+#  Goal: publish CODE only.
+#  All data, results, and manuscript files are kept LOCAL.
+#  Only empty folder placeholders (.gitkeep) are pushed for
+#  data/raw, data/processed, results/, results/figures/.
+#  The manuscript/ folder is NOT published at all.
+# ============================================================
+
+# -----------------------------
+# Manuscript -- NOT PUBLISHED
+# -----------------------------
+manuscript/
+
+# -----------------------------
+# Data -- only keep folders, ignore contents
+# -----------------------------
+data/raw/*
+!data/raw/.gitkeep
+data/processed/*
+!data/processed/.gitkeep
+
+# -----------------------------
+# Results -- only keep folders, ignore contents
+# -----------------------------
+results/*
+!results/figures/
+!results/.gitkeep
+results/figures/*
+!results/figures/.gitkeep
+
+# -----------------------------
+# Python
+# -----------------------------
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg
+*.egg-info/
+.eggs/
+*.eggs
+.installed.cfg
+build/
+dist/
+develop-eggs/
+downloads/
+eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+MANIFEST
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+.env
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# Testing / coverage
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+.tox/
+.nox/
+.hypothesis/
+coverage.xml
+*.cover
+
+# Type checkers
+.mypy_cache/
+.dmypy.json
+dmypy.json
+.pyre/
+.ruff_cache/
+
+# -----------------------------
+# IDE / OS
+# -----------------------------
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# -----------------------------
+# LaTeX build artefacts (manuscript already fully ignored)
+# -----------------------------
+*.aux
+*.bbl
+*.blg
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.synctex.gz
+*.toc
+*.lof
+*.lot
+*.bcf
+*.run.xml
+
+# -----------------------------
+# Model artefacts
+# -----------------------------
+models/
+*.pkl
+*.pickle
+*.joblib
+*.h5
+*.pt
+*.pth
+*.ckpt
+checkpoints/
+wandb/
+mlruns/
+
+# -----------------------------
+# Logs / temp
+# -----------------------------
+logs/
+*.log
+*.tmp
+*.bak
+*.cache
+tmp/
+scratch/
+
+# -----------------------------
+# Secrets / config
+# -----------------------------
+.env
+.env.local
+.env.*.local
+secrets.yml
+config.local.yml
+*.pem
+*.key
+api_keys.txt
+fred_api_key.txt

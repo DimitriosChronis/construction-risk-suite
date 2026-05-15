@@ -1,0 +1,42 @@
+# Paper 5 — conda environment specification
+# Create with:  conda env create -f environment.yml
+# Activate with: conda activate construction-risk-p5
+#
+# Notes:
+#  - pyvinecopulib + arch are installed via pip (no conda-forge pins that match our version).
+#  - torch is CPU-only; replace with `pytorch::pytorch` + cudatoolkit if GPU desired.
+
+name: construction-risk-p5
+channels:
+  - conda-forge
+  - defaults
+
+dependencies:
+  - python=3.13.3
+
+  # core numerics
+  - numpy=2.3.5
+  - pandas=2.3.3
+  - scipy=1.16.3
+
+  # stats / ML
+  - scikit-learn=1.7.2
+  - statsmodels=0.14.6
+  - xgboost=3.1.2
+
+  # visualisation
+  - matplotlib=3.10.7
+  - networkx=3.5
+
+  # I/O + utilities
+  - requests=2.32.5
+
+  # testing
+  - pytest=8.3.3
+
+  # pip-only packages (not pinnable through conda-forge here)
+  - pip
+  - pip:
+      - torch==2.9.0
+      - pyvinecopulib==0.7.5
+      - arch==8.0.0
