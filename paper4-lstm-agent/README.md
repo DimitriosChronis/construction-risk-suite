@@ -2,7 +2,7 @@
 
 **An LSTM-Copula Agent with Explainable Procurement Triggers**
 
-> Chronis, D. (2026). *Real-Time Regime Detection for Construction Cost Risk: An LSTM-Copula Agent with Explainable Procurement Triggers*. In preparation.
+> Chronis, D. (2026). *Real-Time Regime Detection for Construction Cost Risk: An LSTM-Copula Agent with Explainable Procurement Triggers*. Manuscript Under Review.
 
 **Contributions: C6 + C7 + C8**
 
