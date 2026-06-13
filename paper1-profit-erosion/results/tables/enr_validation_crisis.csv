@@ -1,0 +1,6 @@
+Crisis Period,ELSTAT Series,Kendall's tau,p-value,Spearman rho,Significant (p<0.05),n
+Euro Debt (2010-2013),General_Index,1.0,0.0833,1.0,No,4
+Euro Debt (2010-2013),Concrete,0.6667,0.3333,0.8,No,4
+Euro Debt (2010-2013),Steel,0.6667,0.3333,0.8,No,4
+Euro Debt (2010-2013),Fuel_Energy,0.6667,0.3333,0.8,No,4
+Euro Debt (2010-2013),PVC_Pipes,1.0,0.0833,1.0,No,4

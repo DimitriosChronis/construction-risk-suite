@@ -17,6 +17,8 @@ import matplotlib.pyplot as plt
 from pathlib import Path
 from dataclasses import dataclass
 from scipy.stats import kendalltau, norm, rankdata
+from scipy.stats import t as student_t
+from scipy.special import gammaln
 from scipy.optimize import minimize_scalar, minimize
 import warnings
 warnings.filterwarnings('ignore')
@@ -82,6 +84,67 @@ class GaussianCopula:
     @staticmethod
     def num_params(d: int) -> int:
         return d * (d - 1) // 2
+
+
+class StudentTCopula:
+    """Multivariate Student-t copula (Demarta and McNeil 2005).
+    Two-step estimation: correlation R from normal-score sample
+    correlation, degrees of freedom nu by profile MLE. Captures
+    symmetric (both-tail) dependence; serves as the natural elliptical
+    competitor to Gumbel, matching the five-family comparison of
+    Firouzi et al. (2016)."""
+    name = "Student-t"
+
+    @staticmethod
+    def _logpdf(u: np.ndarray, R: np.ndarray, nu: float) -> np.ndarray:
+        """Per-observation t-copula log-density."""
+        n, d = u.shape
+        uc = np.clip(u, 1e-9, 1 - 1e-9)
+        x = student_t.ppf(uc, df=nu)                       # inverse-t margins
+        sign, logdet = np.linalg.slogdet(R)
+        if sign <= 0:
+            return np.full(n, -np.inf)
+        R_inv = np.linalg.inv(R)
+        quad = np.einsum('ni,ij,nj->n', x, R_inv, x)
+        # log of multivariate t density (location 0, scale R, df nu)
+        log_mv = (gammaln((nu + d) / 2.0) - gammaln(nu / 2.0)
+                  - 0.5 * d * np.log(nu * np.pi) - 0.5 * logdet
+                  - 0.5 * (nu + d) * np.log1p(quad / nu))
+        # sum of univariate t log densities
+        log_uni = (gammaln((nu + 1) / 2.0) - gammaln(nu / 2.0)
+                   - 0.5 * np.log(nu * np.pi)
+                   - 0.5 * (nu + 1) * np.log1p(x ** 2 / nu))
+        return log_mv - log_uni.sum(axis=1)
+
+    @staticmethod
+    def fit(u: np.ndarray):
+        """Return (R, nu). R from normal-score correlation; nu by 1-D MLE."""
+        x = norm.ppf(np.clip(u, 1e-6, 1 - 1e-6))
+        R = np.corrcoef(x.T)
+        eigvals = np.linalg.eigvalsh(R)
+        if eigvals.min() < 1e-8:
+            R += np.eye(R.shape[0]) * (1e-6 - eigvals.min())
+
+        def neg_ll(nu):
+            if nu <= 2.0:
+                return 1e12
+            ll = StudentTCopula._logpdf(u, R, nu)
+            ll = ll[np.isfinite(ll)]
+            return -float(np.sum(ll))
+
+        res = minimize_scalar(neg_ll, bounds=(2.1, 100.0), method='bounded',
+                              options={'xatol': 1e-3})
+        return (R, float(res.x))
+
+    @staticmethod
+    def log_likelihood(u: np.ndarray, params) -> float:
+        R, nu = params
+        ll = StudentTCopula._logpdf(u, R, nu)
+        return float(np.sum(ll[np.isfinite(ll)]))
+
+    @staticmethod
+    def num_params(d: int) -> int:
+        return d * (d - 1) // 2 + 1     # correlation entries + nu
 
 
 class GumbelCopula:
@@ -247,7 +310,7 @@ class FrankCopula:
 
 # --- 4. MAIN GOF ENGINE ---
 class CopulaGoFAnalyzer:
-    COPULAS = [GaussianCopula, GumbelCopula, ClaytonCopula, FrankCopula]
+    COPULAS = [GaussianCopula, StudentTCopula, GumbelCopula, ClaytonCopula, FrankCopula]
 
     def __init__(self, cfg: GoFConfig):
         self.cfg = cfg
@@ -298,6 +361,10 @@ class CopulaGoFAnalyzer:
 
                 if CopClass.name == 'Gaussian':
                     param_str = f"rho_bar = {np.mean(param[np.triu_indices(d, 1)]):.3f}"
+                elif CopClass.name == 'Student-t':
+                    R_t, nu_t = param
+                    rho_bar = np.mean(R_t[np.triu_indices(d, 1)])
+                    param_str = f"rho_bar = {rho_bar:.3f}, nu = {nu_t:.1f}"
                 else:
                     param_str = f"theta = {param:.3f}"
 
@@ -311,8 +378,8 @@ class CopulaGoFAnalyzer:
                     'k':                k,
                     'n':                n,
                 })
-                print(f"  {CopClass.name:10s} | theta/rho={param if CopClass.name != 'Gaussian' else np.mean(param[np.triu_indices(d, 1)]):.3f}"
-                      f" | LL={ll:10.1f} | AIC={aic:10.1f} | BIC={bic:10.1f}")
+                print(f"  {CopClass.name:10s} | {param_str:28s}"
+                      f" | LL={ll:8.1f} | AIC={aic:8.1f} | BIC={bic:8.1f}")
 
             # Identify best per regime
             best_aic = min(regime_rows, key=lambda r: r['AIC'])

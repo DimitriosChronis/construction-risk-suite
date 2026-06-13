@@ -146,7 +146,7 @@ class VolatilityCapAnalyzer:
         n_cols = len(cols)
         colors = ['#0072B2', '#D55E00', '#009E73', '#CC79A7', '#E69F00']
 
-        fig, axes = plt.subplots(1, n_cols, figsize=(7.2, 3.2), sharey=False)
+        fig, axes = plt.subplots(1, n_cols, figsize=(11.0, 4.4), sharey=False)
         if n_cols == 1:
             axes = [axes]
 
@@ -165,7 +165,7 @@ class VolatilityCapAnalyzer:
                 f"P{df_stats.loc[df_stats['Series']==col, 'Empirical pctile of cap (|ret|)'].values[0]:.0f}",
                 xy=(self.cfg.VOL_CAP, cap_y * 0.6),
                 xytext=(self.cfg.VOL_CAP + 0.005, cap_y * 0.6),
-                fontsize=7, color='#CC0000', fontweight='bold',
+                fontsize=11, color='#CC0000', fontweight='bold',
                 arrowprops=dict(arrowstyle='->', color='#CC0000', lw=1.0)
             )
 
@@ -175,19 +175,19 @@ class VolatilityCapAnalyzer:
                             alpha=0.35, color='#CC0000', label='Beyond cap')
 
             exceed = df_stats.loc[df_stats['Series'] == col, '% months > cap'].values[0]
-            ax.set_title(col.replace('_', '\n'), fontsize=7, fontweight='bold')
-            ax.set_xlabel('|Monthly Return|', fontsize=7)
-            ax.tick_params(labelsize=6)
+            ax.set_title(col.replace('_', ' '), fontsize=12, fontweight='bold')
+            ax.set_xlabel('|Monthly Return|', fontsize=11)
+            ax.tick_params(labelsize=9)
             ax.set_xlim(left=0)
             ax.grid(True, alpha=0.3, linewidth=0.4)
 
             # Footnote inside panel
             ax.text(0.97, 0.95, f'{exceed:.1f}% exceed',
-                    transform=ax.transAxes, fontsize=6,
+                    transform=ax.transAxes, fontsize=9,
                     ha='right', va='top', color='#CC0000',
                     bbox=dict(boxstyle='round,pad=0.2', fc='white', ec='#CC0000', alpha=0.7))
 
-        axes[0].set_ylabel('Density', fontsize=8)
+        axes[0].set_ylabel('Density', fontsize=12)
 
         # Shared legend
         from matplotlib.lines import Line2D
@@ -197,7 +197,7 @@ class VolatilityCapAnalyzer:
             mpatches.Patch(facecolor='#CC0000', alpha=0.35, label='Exceeds Cap (Throttled)')
         ]
         fig.legend(handles=legend_elements, loc='lower center', ncol=2,
-                   fontsize=7, frameon=True, bbox_to_anchor=(0.5, -0.02))
+                   fontsize=11, frameon=True, bbox_to_anchor=(0.5, -0.02))
 
         plt.tight_layout(rect=[0, 0.06, 1, 1])
 

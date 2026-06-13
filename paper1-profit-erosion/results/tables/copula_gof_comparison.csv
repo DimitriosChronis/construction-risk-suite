@@ -1,0 +1,11 @@
+Regime,Copula,Parameters,Log-Likelihood,AIC,BIC,k,n,AIC_Rank,BIC_Rank,Best (AIC)
+Stable (2014-2019),Gaussian,rho_bar = 0.221,12.7,-13.3,0.3,6,72,4,4,False
+Stable (2014-2019),Student-t,"rho_bar = 0.221, nu = 35.0",12.8,-11.5,4.4,7,72,5,5,False
+Stable (2014-2019),Gumbel,theta = 1.168,10.1,-18.2,-15.9,1,72,2,2,False
+Stable (2014-2019),Clayton,theta = 0.289,8.5,-14.9,-12.6,1,72,3,3,False
+Stable (2014-2019),Frank,theta = -1.397,10.8,-19.5,-17.2,1,72,1,1,True
+Crisis (2021-2024),Gaussian,rho_bar = 0.120,5.3,1.4,12.6,6,48,4,4,False
+Crisis (2021-2024),Student-t,"rho_bar = 0.120, nu = 6.5",6.5,1.1,14.2,7,48,3,5,False
+Crisis (2021-2024),Gumbel,theta = 1.141,5.8,-9.7,-7.8,1,48,1,1,True
+Crisis (2021-2024),Clayton,theta = 0.016,0.0,2.0,3.8,1,48,5,3,False
+Crisis (2021-2024),Frank,theta = -0.655,1.5,-1.1,0.8,1,48,2,2,False

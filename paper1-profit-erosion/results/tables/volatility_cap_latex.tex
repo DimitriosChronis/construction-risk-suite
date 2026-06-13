@@ -1,0 +1,19 @@
+\begin{table}[htbp]
+\centering
+\caption{Empirical Justification for the 15% Monthly Volatility Cap: Percentile Analysis of Greek ELSTAT Returns}
+\label{tab:volcap}
+\begin{tabular}{lrrrrr}
+\toprule
+Series & Max $|r_t|$ & Months $>$ cap & $\%$ $>$ cap & Pctile of cap ($|r_t|$) & Pctile of cap (roll.\ std) \\
+\midrule
+General_Index & 0.0193 & 0 & 0.00\% & 100.0th & 100.0th \\
+Concrete & 0.0189 & 0 & 0.00\% & 100.0th & 100.0th \\
+Steel & 0.0476 & 0 & 0.00\% & 100.0th & 100.0th \\
+Fuel_Energy & 0.1031 & 0 & 0.00\% & 100.0th & 100.0th \\
+PVC_Pipes & 0.0424 & 0 & 0.00\% & 100.0th & 100.0th \\
+\midrule
+\textbf{Average} & --- & --- & \textbf{0.00}\% & \textbf{100.0th} & --- \\
+\bottomrule
+\multicolumn{6}{l}{\footnotesize \textit{Note: $|r_t|$ = absolute monthly log-return. Cap = 15\% monthly volatility threshold applied in Monte Carlo simulation. Pctile = empirical percentile of cap in observed distribution.}} \\
+\end{tabular}
+\end{table}

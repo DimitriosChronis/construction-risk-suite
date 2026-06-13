@@ -1,0 +1,7 @@
+Tree,Edge,Pair,Family,Parameters,tau
+1,1,PVC_Pipes - PVC_Pipes,BicopFamily.frank,[3.1069],0.3165
+1,2,PVC_Pipes - PVC_Pipes,BicopFamily.frank,[4.1058],0.396
+1,3,PVC_Pipes - PVC_Pipes,BicopFamily.gumbel,[1.2274],0.1853
+2,1,PVC_Pipes - PVC_Pipes,BicopFamily.gumbel,[1.1064],0.0962
+2,2,PVC_Pipes - PVC_Pipes,BicopFamily.clayton,[0.2302],0.1032
+3,1,PVC_Pipes - PVC_Pipes,BicopFamily.gumbel,[1.05],-0.0477

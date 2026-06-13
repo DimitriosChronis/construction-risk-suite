@@ -1,0 +1,6 @@
+ELSTAT Series,Kendall's tau,p-value,Spearman rho,Significant (p<0.05),Period,n
+General_Index,0.3696,0.0111,0.5165,Yes,Full (2001-2024),24
+Concrete,0.3261,0.0261,0.4357,Yes,Full (2001-2024),24
+Steel,0.3623,0.0129,0.5035,Yes,Full (2001-2024),24
+Fuel_Energy,0.2391,0.1074,0.3365,No,Full (2001-2024),24
+PVC_Pipes,0.3333,0.0228,0.5113,Yes,Full (2001-2024),24

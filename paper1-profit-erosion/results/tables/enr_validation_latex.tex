@@ -1,0 +1,26 @@
+\begin{table}[htbp]
+\centering
+\caption{Kendall's $\tau$ Correlation: Greek ELSTAT vs.\ ENR CCI (Annual Year-on-Year Log Changes)}
+\label{tab:enr_validation}
+\begin{tabular}{llrrrc}
+\toprule
+Period & ELSTAT Series & $\tau$ & $\rho_S$ & $p$-value & Sig. \\
+\midrule
+\multicolumn{6}{l}{\textit{(A) Full Period -- Annual YoY}} \\
+Full (2001-2024) & General_Index & 0.3696 & 0.5165 & 0.0111 & Yes \\
+Full (2001-2024) & Concrete & 0.3261 & 0.4357 & 0.0261 & Yes \\
+Full (2001-2024) & Steel & 0.3623 & 0.5035 & 0.0129 & Yes \\
+Full (2001-2024) & Fuel_Energy & 0.2391 & 0.3365 & 0.1074 & No \\
+Full (2001-2024) & PVC_Pipes & 0.3333 & 0.5113 & 0.0228 & Yes \\
+\midrule
+\multicolumn{6}{l}{\textit{(B) Crisis Periods -- Annual YoY}} \\
+\multicolumn{6}{l}{\quad \textit{Euro Debt (2010-2013)}} \\
+ & General_Index & 1.0000 & 1.0000 & 0.0833 & No \\ % n=4
+ & Concrete & 0.6667 & 0.8000 & 0.3333 & No \\ % n=4
+ & Steel & 0.6667 & 0.8000 & 0.3333 & No \\ % n=4
+ & Fuel_Energy & 0.6667 & 0.8000 & 0.3333 & No \\ % n=4
+ & PVC_Pipes & 1.0000 & 1.0000 & 0.0833 & No \\ % n=4
+\bottomrule
+\multicolumn{6}{l}{\footnotesize \textit{Note: ENR 20-city CCI annual values (base 1913=100). Both series expressed as annual YoY log-returns. ELSTAT: Jan-to-Jan. ENR: year-over-year. $\rho_S$ = Spearman. Sig.\ at 5\%.}} \\
+\end{tabular}
+\end{table}

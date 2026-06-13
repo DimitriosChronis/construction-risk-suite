@@ -1,0 +1,23 @@
+\begin{table}[htbp]
+\centering
+\caption{Copula Goodness-of-Fit Comparison (PIT + MLE)}
+\label{tab:copula_gof}
+\begin{tabular}{llcrrr}
+\toprule
+Regime & Copula & Parameter & Log-Lik. & AIC & BIC \\
+\midrule
+\textbf{Stable (2014-2019)} & \textbf{Frank} & \textbf{$\theta$ = -1.397} & \textbf{10.8} & \textbf{-19.5} & \textbf{-17.2} \\
+ & Gumbel & $\theta$ = 1.168 & 10.1 & -18.2 & -15.9 \\
+ & Clayton & $\theta$ = 0.289 & 8.5 & -14.9 & -12.6 \\
+ & Gaussian & $\bar{\rho}$ = 0.221 & 12.7 & -13.3 & 0.3 \\
+ & Student-t & $\bar{\rho}$ = 0.221, nu = 35.0 & 12.8 & -11.5 & 4.4 \\
+\midrule
+\textbf{Crisis (2021-2024)} & \textbf{Gumbel} & \textbf{$\theta$ = 1.141} & \textbf{5.8} & \textbf{-9.7} & \textbf{-7.8} \\
+ & Frank & $\theta$ = -0.655 & 1.5 & -1.1 & 0.8 \\
+ & Student-t & $\bar{\rho}$ = 0.120, nu = 6.5 & 6.5 & 1.1 & 14.2 \\
+ & Gaussian & $\bar{\rho}$ = 0.120 & 5.3 & 1.4 & 12.6 \\
+ & Clayton & $\theta$ = 0.016 & 0.0 & 2.0 & 3.8 \\
+\bottomrule
+\multicolumn{6}{l}{\footnotesize \textit{Note: Pseudo-observations via empirical PIT (rankdata\,/\,(n+1), Genest \& Favre 2007). All copulas fitted by MLE on uniform margins. Bold/green shading = best AIC per regime. Lower AIC/BIC = superior fit.}} \\
+\end{tabular}
+\end{table}

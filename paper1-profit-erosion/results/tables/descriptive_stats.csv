@@ -1,0 +1,6 @@
+Material,Monthly Mean,Annual Volatility,Skewness,Excess Kurtosis,Min Return (Max Loss),Normality (p<0.05)
+General_Index,0.0020,1.36%,0.66,2.84,-1.13%,REJECTED
+Concrete,0.0014,1.17%,1.35,3.88,-0.85%,REJECTED
+Steel,0.0024,3.01%,0.26,8.74,-4.33%,REJECTED
+Fuel_Energy,0.0034,6.77%,0.64,4.55,-8.13%,REJECTED
+PVC_Pipes,0.0028,2.13%,1.40,7.48,-1.73%,REJECTED

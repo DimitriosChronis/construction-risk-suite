@@ -1,0 +1,5 @@
+Calibration,Duration_months,Portfolio,Avg_Kendall_tau,Gumbel_theta,lambda_U,P85_Independent_EUR,P85_Gumbel_EUR,Hidden_Risk_Gap_EUR,Gap_pct_of_base,P85_Gumbel_above_base_%,P85_Ind_above_base_%
+2000-2009,24,Standard Building (30/30/20/20),0.2267,1.2931,0.2908,2360594,2376324,15729,0.68,3.32,2.63
+2000-2009,24,Motorway-Adjusted (35/30/25/10),0.2267,1.2931,0.2908,2366495,2381344,14849,0.65,3.54,2.89
+2000-2009,36,Standard Building (30/30/20/20),0.2267,1.2931,0.2908,2375536,2393712,18176,0.79,4.07,3.28
+2000-2009,36,Motorway-Adjusted (35/30/25/10),0.2267,1.2931,0.2908,2382939,2401403,18463,0.8,4.41,3.61
