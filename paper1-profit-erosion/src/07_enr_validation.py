@@ -393,8 +393,9 @@ class ENRCorrelationAnalyzer:
         plt.tight_layout()
         out = self.cfg.FIGURES_DIR / 'fig_enr_validation.png'
         plt.savefig(out, dpi=300, bbox_inches='tight', facecolor='white')
+        plt.savefig(out.with_suffix('.pdf'), bbox_inches='tight', facecolor='white')
         plt.close()
-        print(f"[OK] Figure saved -> {out}")
+        print(f"[OK] Figure saved -> {out} (+ .pdf)")
 
     def _plot_crisis_heatmap(self, df_crisis: pd.DataFrame):
         if df_crisis.empty:

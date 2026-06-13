@@ -203,6 +203,7 @@ class VolatilityCapAnalyzer:
 
         out = self.cfg.FIGURES_DIR / 'fig_volatility_cap.png'
         plt.savefig(out, dpi=300, bbox_inches='tight', facecolor='white')
+        plt.savefig(out.with_suffix('.pdf'), bbox_inches='tight', facecolor='white')
         plt.close()
         print(f"[OK] Figure saved -> {out}")
 

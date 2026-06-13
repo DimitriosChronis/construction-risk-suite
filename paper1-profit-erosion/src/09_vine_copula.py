@@ -479,8 +479,9 @@ class VineCopulaEngine:
 
         out = self.cfg.FIGURES_DIR / 'fig_vine_copula.png'
         plt.savefig(out, dpi=300, bbox_inches='tight', facecolor='white')
+        plt.savefig(out.with_suffix('.pdf'), bbox_inches='tight', facecolor='white')
         plt.close()
-        print(f"[OK] Figure saved -> {out}")
+        print(f"[OK] Figure saved -> {out} (+ .pdf)")
 
     def _export_latex(self, df_comp, structure_rows, regime_rows):
         """LaTeX table: Vine vs Gumbel cost percentiles."""

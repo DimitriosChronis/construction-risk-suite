@@ -215,6 +215,7 @@ def fig3_scurves(cfg: ASCEFigConfig):
     plt.tight_layout()
     out = cfg.FIG_DIR / 'fig3_scurve_asce.png'
     plt.savefig(out, dpi=ASCE_DPI)
+    plt.savefig(out.with_suffix('.pdf'))
     plt.close()
     print(f'[OK] fig3 -> {out}')
     print(f'     x-axis range: EUR {x_lo:,.0f} -- EUR {x_hi:,.0f}')
@@ -281,6 +282,7 @@ def fig4_rolling_risk(cfg: ASCEFigConfig):
     plt.tight_layout()
     out = cfg.FIG_DIR / 'fig4_rolling_risk_asce.png'
     plt.savefig(out, dpi=ASCE_DPI)
+    plt.savefig(out.with_suffix('.pdf'))
     plt.close()
     print(f'[OK] fig4 -> {out}')
 
@@ -346,11 +348,16 @@ def fig5_3d_density(cfg: ASCEFigConfig):
     cbar.set_label('Joint Frequency', fontsize=7)
     cbar.ax.tick_params(labelsize=6)
 
+    ax.set_title(r'Gumbel copula stress scenario:  '
+                 r'$\theta = 6.67$,  $\tau = 0.85$,  $\lambda_U = 0.89$',
+                 fontsize=9, pad=0)
+
     plt.tight_layout()
     out = cfg.FIG_DIR / 'fig5_3d_density_asce.png'
     plt.savefig(out, dpi=ASCE_DPI)
+    plt.savefig(out.with_suffix('.pdf'))
     plt.close()
-    print(f'[OK] fig5 -> {out}')
+    print(f'[OK] fig5 -> {out} (+ .pdf)')
 
 
 # ── EXECUTION ─────────────────────────────────────────────────────────────────
