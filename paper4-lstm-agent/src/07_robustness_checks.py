@@ -33,7 +33,7 @@ warnings.filterwarnings("ignore")
 import torch
 
 from utils import (make_sequences, train_ensemble, predict_ensemble,
-                   DEFAULT_SEEDS)
+                   causal_crisis_labels, DEFAULT_SEEDS)
 
 # ==============================================================================
 # PARAMETERS
@@ -56,7 +56,7 @@ ENSEMBLE_SEEDS = DEFAULT_SEEDS
 
 # Robustness grids
 LOOKBACK_GRID   = [3, 6, 9, 12]
-CRISIS_PCT_GRID = [0.70, 0.75, 0.80, 0.85]
+CRISIS_PCT_GRID = [0.67, 0.70, 0.75, 0.80, 0.85, 0.90]
 LEAD_GRID       = [1, 2, 3, 4]
 VOL_WIN_GRID    = [3, 6, 9]
 
@@ -99,10 +99,10 @@ def build_features(raw, us_cols, vol_window):
 
 
 def build_labels(raw, target_mat, crisis_pct, vol_window):
-    """Build crisis labels with given crisis_pct and vol_window."""
+    """Build LEAK-FREE causal crisis labels (point-in-time threshold)."""
     vol = raw[target_mat].rolling(vol_window).std()
-    thr = vol.quantile(crisis_pct)
-    return (vol > thr).astype(int), thr
+    lab = causal_crisis_labels(vol, pct=crisis_pct, min_hist=36)
+    return lab, np.nan
 
 
 def run_experiment(raw, us_cols, target_mat, lookback, lead,

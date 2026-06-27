@@ -428,50 +428,56 @@ else:
 # ==============================================================================
 print("FIG 5: Walk-forward validation")
 
-if wf_qtr is not None and len(wf_qtr) > 0:
+# Honest walk-forward figure: POOLED out-of-sample ROC + cumulative pooled
+# AUC. Per-window AUCs are uninformative (most short windows have 0 or few
+# crisis months), so we do NOT headline their mean. The pooled AUC over all
+# out-of-sample predictions is the correct generalization measure.
+from sklearn.metrics import roc_curve as _roc_curve, roc_auc_score as _auc
+_wf_pred = _opt("wf_predictions.csv")
+if _wf_pred is not None and len(_wf_pred) > 0:
     fig, axes = plt.subplots(1, 2, figsize=(14, 5))
 
-    auc_col = "auc" if "auc" in wf_qtr.columns else "cumulative_auc"
-    valid_auc = wf_qtr[wf_qtr[auc_col].notna() & (wf_qtr[auc_col] > 0)]
-    mean_auc = valid_auc[auc_col].mean()
-    std_auc  = valid_auc[auc_col].std()
-    fig.suptitle(f"Walk-Forward Validation: "
-                 f"{len(wf_qtr)} expanding windows | "
-                 f"Mean AUC = {mean_auc:.3f} +/- {std_auc:.3f}",
+    yt = _wf_pred["true"].values
+    pp = _wf_pred["prob"].values
+    pooled_auc = _auc(yt, pp)
+    n_cr = int(yt.sum())
+    fig.suptitle(f"Walk-Forward Validation (expanding quarterly windows): "
+                 f"Pooled out-of-sample AUC = {pooled_auc:.3f} "
+                 f"(N={len(yt)}, {n_cr} crisis months)",
                  fontsize=12, fontweight="bold")
 
+    # Left: pooled OOS ROC
     ax = axes[0]
-    colors_b = ["#2ecc71" if a > 0.70 else "#f39c12" if a > 0.50
-                else "#e74c3c" for a in valid_auc[auc_col]]
-    ax.bar(range(len(valid_auc)), valid_auc[auc_col].values,
-           color=colors_b, edgecolor="black", linewidth=0.3, width=0.8)
-    ax.axhline(mean_auc, color="blue", linestyle="--", lw=2,
-               label=f"Mean AUC = {mean_auc:.3f}")
-    ax.axhline(0.50, color="red", linestyle=":", lw=1, alpha=0.7,
-               label="Random = 0.50")
-    ax.set_ylim(0, 1.05)
-    ax.set_xlabel("Walk-forward window")
-    ax.set_ylabel("Out-of-sample AUC")
-    ax.set_title(f"AUC per window ({len(valid_auc)} valid of {len(wf_qtr)})")
-    ax.legend(); ax.grid(alpha=0.3, axis="y")
+    fpr, tpr, _ = _roc_curve(yt, pp)
+    ax.plot(fpr, tpr, color="#2c3e50", lw=2.2,
+            label=f"Pooled OOS (AUC = {pooled_auc:.3f})")
+    ax.plot([0, 1], [0, 1], "k--", lw=1, label="Random")
+    ax.fill_between(fpr, tpr, alpha=0.12, color="#3498db")
+    ax.set_xlabel("False Positive Rate"); ax.set_ylabel("True Positive Rate")
+    ax.set_title("Pooled out-of-sample ROC")
+    ax.legend(loc="lower right"); ax.grid(alpha=0.3)
 
+    # Right: cumulative pooled AUC over time (stabilizes as crises accumulate)
     ax = axes[1]
-    ax.hist(valid_auc[auc_col], bins=15, color="#3498db", edgecolor="black",
-            alpha=0.8)
-    ax.axvline(mean_auc, color="red", linestyle="--", lw=2,
-               label=f"Mean = {mean_auc:.3f}")
-    ax.axvline(0.50, color="gray", linestyle=":", lw=1.5,
-               label="Random = 0.50")
-    ax.set_xlabel("AUC")
-    ax.set_ylabel("Count")
-    ax.set_title("Distribution of OOS AUC across windows")
-    ax.legend(); ax.grid(alpha=0.3)
+    if wf_qtr is not None and len(wf_qtr) > 0:
+        auc_col = "cumulative_auc" if "cumulative_auc" in wf_qtr.columns else "auc"
+        cu = wf_qtr.dropna(subset=[auc_col])
+        ax.plot(range(len(cu)), cu[auc_col].values, "o-", color="#2c3e50",
+                lw=1.8, markersize=3)
+        ax.axhline(pooled_auc, color="#3498db", linestyle="--", lw=1.5,
+                   label=f"Final pooled = {pooled_auc:.3f}")
+    ax.axhline(0.50, color="red", linestyle=":", lw=1, label="Random = 0.50")
+    ax.set_ylim(0.3, 1.02)
+    ax.set_xlabel("Walk-forward window (cumulative)")
+    ax.set_ylabel("Cumulative pooled OOS AUC")
+    ax.set_title("Cumulative pooled AUC (stabilizes with crisis data)")
+    ax.legend(loc="lower right"); ax.grid(alpha=0.3)
 
     plt.tight_layout()
     p = RESULTS_DIR + "fig5_walk_forward.pdf"
     plt.savefig(p, bbox_inches="tight"); print(f"  Saved: {p}"); plt.close()
 else:
-    print("  SKIPPED: no walk-forward results found")
+    print("  SKIPPED: no walk-forward predictions found")
 
 
 # ==============================================================================

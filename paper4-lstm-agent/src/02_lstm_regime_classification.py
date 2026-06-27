@@ -105,15 +105,19 @@ print("\n" + "=" * 60)
 print("STEP 3: Crisis regime definition per material")
 print("=" * 60)
 
+# Leak-free causal crisis labels are produced by 01_data_preparation.py
+# (point-in-time P75 threshold). Load them rather than recomputing on the
+# full sample, which would reintroduce look-ahead in label construction.
+labels_df = pd.read_csv(PROCESSED_DIR + "crisis_labels.csv",
+                        index_col=0, parse_dates=True)
 crisis_regimes = {}
 for mat in TARGET_MATERIALS:
-    vol = df[mat].rolling(VOL_WINDOW).std()
-    thr = vol.quantile(CRISIS_PCT)
-    crisis = (vol > thr).astype(int)
+    crisis = labels_df[mat]
     crisis_regimes[mat] = crisis
-    n_crisis = crisis.sum()
-    print(f"  {mat}: threshold={thr:.4f}, "
-          f"crisis months={n_crisis} ({n_crisis/len(crisis)*100:.1f}%)")
+    valid = crisis.dropna()
+    n_crisis = int(valid.sum())
+    print(f"  {mat}: leak-free labels | "
+          f"crisis months={n_crisis} ({n_crisis/len(valid)*100:.1f}%)")
 
 # ==============================================================================
 # 4. RUN EXPERIMENT PER MATERIAL x LEAD TIME

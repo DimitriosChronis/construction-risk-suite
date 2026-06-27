@@ -50,3 +50,4 @@ Thumbs.db
 *.swp
 # Manuscript under peer review - keep private
 paper1-profit-erosion/manuscript/
+paper4-lstm-agent/manuscript/

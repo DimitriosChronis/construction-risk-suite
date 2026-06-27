@@ -92,6 +92,50 @@ class RNNClassifier(nn.Module):
 
 
 # ══════════════════════════════════════════════════════════════════════════════
+# 1b. LEAK-FREE (CAUSAL) CRISIS LABELS
+# ══════════════════════════════════════════════════════════════════════════════
+def causal_crisis_labels(vol, pct=0.75, min_hist=36):
+    """Point-in-time, leak-free crisis-regime labels.
+
+    For each month t (after a `min_hist`-month burn-in), the crisis threshold
+    is the `pct`-quantile of the realised volatility observed UP TO AND
+    INCLUDING t only; the label is 1 iff vol_t exceeds that expanding
+    threshold. Because the threshold at t uses no observation later than t,
+    the labels carry no look-ahead information and are valid for any
+    train/test or walk-forward split (addresses leakage in label
+    construction). Burn-in months return NaN.
+
+    Parameters
+    ----------
+    vol : pd.Series
+        Rolling realised volatility, indexed by date (may contain leading NaNs).
+    pct : float
+        Crisis percentile (default 0.75 = P75).
+    min_hist : int
+        Minimum number of non-NaN observations before a label is emitted.
+
+    Returns
+    -------
+    pd.Series of {0.0, 1.0, NaN} aligned to `vol.index`.
+    """
+    import numpy as np
+    import pandas as pd
+    out = pd.Series(index=vol.index, dtype=float)
+    seen = 0
+    for idx, val in vol.items():
+        if pd.isna(val):
+            out[idx] = np.nan
+            continue
+        seen += 1
+        if seen < min_hist:
+            out[idx] = np.nan
+        else:
+            thr = vol.loc[:idx].dropna().quantile(pct)
+            out[idx] = float(val > thr)
+    return out
+
+
+# ══════════════════════════════════════════════════════════════════════════════
 # 2. SEQUENCE CONSTRUCTION
 # ══════════════════════════════════════════════════════════════════════════════
 def make_sequences(X, y, lookback, lead, dates=None):

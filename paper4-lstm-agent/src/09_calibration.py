@@ -102,10 +102,25 @@ n_tr = int(len(X_seq) * TRAIN_RATIO)
 X_tr, X_te = X_seq[:n_tr], X_seq[n_tr:]
 y_tr, y_te = y_seq[:n_tr], y_seq[n_tr:]
 
-# Val split for calibration fitting (from training set)
-n_cal = int(len(X_tr) * 0.80)
-X_cal_tr, X_cal_val = X_tr[:n_cal], X_tr[n_cal:]
-y_cal_tr, y_cal_val = y_tr[:n_cal], y_tr[n_cal:]
+# Val split for calibration fitting (from training set).
+# A temporal tail split lands entirely in a stable period with no crisis
+# examples, leaving the calibrator unfittable (single-class). We therefore
+# use a STRATIFIED random split so the calibration set contains both
+# regimes. The calibrator only maps scores->probabilities; it does not
+# affect the temporal out-of-sample test set, so a stratified fit set
+# introduces no leakage into the reported test metrics.
+from sklearn.model_selection import train_test_split
+if int(y_tr.sum()) >= 2 and int((1 - y_tr).sum()) >= 2:
+    idx_cal_tr, idx_cal_val = train_test_split(
+        np.arange(len(X_tr)), test_size=0.20,
+        random_state=SEED, stratify=y_tr)
+    idx_cal_tr = np.sort(idx_cal_tr)
+    idx_cal_val = np.sort(idx_cal_val)
+else:
+    n_cal = int(len(X_tr) * 0.80)
+    idx_cal_tr, idx_cal_val = np.arange(n_cal), np.arange(n_cal, len(X_tr))
+X_cal_tr, X_cal_val = X_tr[idx_cal_tr], X_tr[idx_cal_val]
+y_cal_tr, y_cal_val = y_tr[idx_cal_tr], y_tr[idx_cal_val]
 
 print(f"  Train: {len(X_tr)} | Val (calib): {len(X_cal_val)} | Test: {len(X_te)}")
 

@@ -109,41 +109,77 @@ features.to_csv(OUT_DIR + "features.csv")
 # ══════════════════════════════════════════════════════════════════════════════
 print("\nSTEP 3: Crisis regime labels")
 
-labels = pd.DataFrame(index=df.index)
+# Crisis labels are LEAK-FREE (point-in-time / causal): the P75 threshold at
+# each month uses only volatility observed up to that month, so no future
+# information enters label construction. A leakage-prone GLOBAL-threshold
+# version is also saved for the reviewer-requested comparison.
+from utils import causal_crisis_labels
+
+MIN_HIST = 36   # burn-in months before first causal label (3 years)
+
+labels        = pd.DataFrame(index=df.index)   # leak-free (causal)
+labels_global = pd.DataFrame(index=df.index)   # leak-prone (full-sample), for comparison
 thresholds = {}
 summary_rows = []
+leak_rows    = []
 
 for mat in TARGET_MATERIALS:
     vol = df[mat].rolling(VOL_WINDOW).std()
-    thr = vol.quantile(CRISIS_PCT)
-    thresholds[mat] = thr
-    labels[mat] = (vol > thr).astype(int)
 
-    n_total  = labels[mat].notna().sum()
-    n_crisis = int(labels[mat].sum())
+    # Leak-free causal labels
+    lab_causal = causal_crisis_labels(vol, pct=CRISIS_PCT, min_hist=MIN_HIST)
+    labels[mat] = lab_causal
+
+    # Leak-prone global labels (for the leakage-magnitude diagnostic only)
+    thr_global = vol.quantile(CRISIS_PCT)
+    lab_global = (vol > thr_global).astype(int)
+    labels_global[mat] = lab_global
+    thresholds[mat] = thr_global
+
+    valid    = lab_causal.dropna().index
+    n_total  = len(valid)
+    n_crisis = int(lab_causal.loc[valid].sum())
     pct      = n_crisis / n_total * 100
 
-    # Regime-specific stats
-    stable_crisis = labels[mat].loc[STABLE_START:STABLE_END].mean()
-    crisis_crisis = labels[mat].loc[CRISIS_START:CRISIS_END].mean()
+    # Leakage diagnostic: causal vs global agreement on the causal-defined span
+    agree = (lab_global.loc[valid] == lab_causal.loc[valid]).mean() * 100
+    flips = int((lab_global.loc[valid] != lab_causal.loc[valid]).sum())
+
+    # Regime-specific stats (causal labels)
+    stable_crisis = lab_causal.loc[STABLE_START:STABLE_END].mean()
+    crisis_crisis = lab_causal.loc[CRISIS_START:CRISIS_END].mean()
 
     print(f"  {mat}:")
-    print(f"    Threshold (P75) : {thr:.4f}")
-    print(f"    Crisis months   : {n_crisis}/{n_total} ({pct:.1f}%)")
+    print(f"    Global P75 threshold : {thr_global:.4f}")
+    print(f"    Causal crisis months : {n_crisis}/{n_total} ({pct:.1f}%)")
+    print(f"    Causal vs global     : {agree:.1f}% agree ({flips} flips)")
     print(f"    Crisis rate — stable regime  : {stable_crisis*100:.1f}%")
     print(f"    Crisis rate — crisis regime  : {crisis_crisis*100:.1f}%")
 
     summary_rows.append({
         "material"         : mat,
-        "threshold_P75"    : thr,
+        "threshold_P75"    : thr_global,
         "n_crisis"         : n_crisis,
         "n_total"          : n_total,
         "pct_crisis"       : pct,
         "stable_crisis_rate": stable_crisis,
         "crisis_crisis_rate": crisis_crisis
     })
+    leak_rows.append({
+        "material"          : mat,
+        "causal_pct_crisis" : round(pct, 1),
+        "global_pct_crisis" : round(lab_global.loc[valid].mean() * 100, 1),
+        "agreement_pct"     : round(agree, 1),
+        "n_flips"           : flips,
+        "n_valid"           : n_total,
+    })
 
 labels.to_csv(OUT_DIR + "crisis_labels.csv")
+labels_global.to_csv(OUT_DIR + "crisis_labels_global.csv")
+pd.DataFrame(leak_rows).to_csv(RESULTS_DIR + "label_leakage_diagnostic.csv",
+                               index=False)
+print("\n  Leak-free causal labels saved -> crisis_labels.csv")
+print("  Leakage diagnostic saved      -> results/label_leakage_diagnostic.csv")
 
 # ══════════════════════════════════════════════════════════════════════════════
 # 4. LEAD-LAG CORRELATION MATRIX
