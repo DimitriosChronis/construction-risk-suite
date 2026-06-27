@@ -12,7 +12,7 @@ Email: cv23006@mail.ntua.gr , dimitrischronis7@gmail.com
 
 This monorepo contains the reproducible code for an 8-paper research series on construction cost risk intelligence. The framework applies vine copula models, LSTM ensemble agents, VAR transmission analysis, and Monte Carlo simulation to construction price indices (2000–2024), demonstrating that standard industry risk methods systematically underestimate extreme downside exposure.
 
-**Core thesis:** Independence and Gaussian assumptions used in traditional Monte Carlo ignore tail dependence between construction materials. During systemic crises (2008 GFC, 2021–2022 energy shock), this produces systematic capital shortfalls that propagate across project phases and national borders — and can be quantified, predicted, and ultimately automated with 13–16 months of early warning.
+**Core thesis:** Independence and Gaussian assumptions used in traditional Monte Carlo ignore tail dependence between construction materials. During systemic crises (2008 GFC, 2021–2022 energy shock), this produces systematic capital shortfalls that propagate across project phases and national borders — and can be quantified, predicted, and, for the materials where a genuine upstream signal exists, automated into explainable early-warning triggers.
 
 ---
 
@@ -23,7 +23,7 @@ This monorepo contains the reproducible code for an 8-paper research series on c
 | 1 | From Statistical Error to Profit Erosion: Quantifying Tail Dependence in Construction Cost Overruns Using Gumbel Copulas | Under Review | [`paper1-profit-erosion/`](paper1-profit-erosion/) |
 | 2 | Global Commodity Transmission to European Construction Cost Inflation: A Vine Copula Network Topology and VAR-IRF Analysis | Under Review | [`paper2-commodity-transmission/`](paper2-commodity-transmission/) |
 | 3 | A Data-Driven Decision Support System for Construction Cost Risk Management: Integrating Tail Risk Analytics with Lifecycle-Phased Procurement Planning | Under Review | [`paper3-es-hedging/`](paper3-es-hedging/) |
-| 4 | Real-Time Regime Detection for Construction Cost Risk: An LSTM-Copula Agent with Explainable Procurement Triggers | Under Review | [`paper4-lstm-agent/`](paper4-lstm-agent/) |
+| 4 | Real-Time Crisis-Regime Detection for Construction Fuel and Energy Costs: An Explainable LSTM Early-Warning Agent | Under Review | [`paper4-lstm-agent/`](paper4-lstm-agent/) |
 | 5 | From Public Procurement Data to Procurement Triggers: An Automated Pipeline for Portfolio-Level Construction Cost Risk Monitoring across Public Infrastructure Projects | Under Review | [`paper5-portfolio-contagion/`](paper5-portfolio-contagion/) |
 | 6 | Pan-European Construction Cost Risk Intelligence: Vine Copula-LSTM Validation Across Southern European Markets | In preparation | — |
 | 7 | Multi-Currency Construction Cost Intelligence for Global Megaproject Portfolios: Shanghai Steel, Gulf Construction, and FX Volatility | Planned | — |
@@ -37,15 +37,15 @@ This monorepo contains the reproducible code for an 8-paper research series on c
 
 | Paper | Key Finding | Value |
 |-------|------------|-------|
-| P1 | Hidden tail risk gap vs Gaussian | EUR 45,806 per project |
+| P1 | Hidden tail-risk gap vs Gaussian (24M, P85) | EUR 8,133 (base) → 44,461 (stress) |
 | P2 | US→Greek transmission lag | Steel: 4M, Fuel: 1M |
 | P3 | Crisis ES(99%) overrun | EUR 2.94M (+28%) |
 | P3 | Superstructure phase overrun risk | +14.2% (bootstrap CI confirmed) |
-| P4 | LSTM ensemble AUC | 0.926 [95% CI: 0.854–0.983] |
-| P4 | GFC 2008 early warning | 13 months before peak |
-| P4 | COVID 2021 early warning | 16 months before peak |
-| P4 | Economic saving vs static rules | EUR 4,001,160 over 72 months |
-| P4 | False alarm reduction | 89% (1 vs 9 false alarms) |
+| P4 | LSTM ensemble AUC (Fuel/Energy, leak-free) | 0.908 [95% CI: 0.824–0.980] |
+| P4 | COVID 2021 detection | Reliable (AUC 0.95); short lead to peak |
+| P4 | GFC 2008 detection | Weak (AUC 0.26); 13M nominal lead |
+| P4 | Economic saving vs static rules | EUR 2.35M over 72 months |
+| P4 | False-alarm reduction | 3 vs 9 false alarms |
 
 ---
 
@@ -76,7 +76,7 @@ construction-risk-suite/
 │   ├── data/raw/.gitkeep
 │   ├── data/processed/.gitkeep
 │   └── results/.gitkeep
-└── paper4-lstm-agent/               # LSTM-Copula agent
+└── paper4-lstm-agent/               # LSTM early-warning agent
     ├── README.md
     ├── src/                         # 16 scripts + utils.py
     │   ├── utils.py
@@ -120,7 +120,7 @@ python 07_hedging_quantification.py
 
 # Run Paper 4 (LSTM Agent) — recommended entry point for ML pipeline
 cd paper4-lstm-agent/src
-python run_all.py        # Runs all 16 scripts sequentially (~67 min)
+python run_all.py        # Runs all 16 scripts sequentially (~90 min)
 ```
 
 ---
@@ -152,7 +152,7 @@ python run_all.py        # Runs all 16 scripts sequentially (~67 min)
 ## Paper 4 — LSTM Agent Pipeline (16 scripts)
 
 ```
-01_data_preparation.py           → Feature engineering (20 features, 294 obs)
+01_data_preparation.py           → Feature engineering (20 features, 259 obs) + leak-free causal labels
 02_lstm_regime_classification.py → 4×4 AUC matrix (materials × lead times)
 03_shap_explanations.py          → KernelSHAP feature attribution
 04_walk_forward_validation.py    → Expanding window OOS validation
@@ -160,11 +160,11 @@ python run_all.py        # Runs all 16 scripts sequentially (~67 min)
 06_bootstrap_auc.py              → Bootstrap CI (B=1,000) + permutation test
 07_robustness_checks.py          → Sensitivity: lead/lookback/threshold
 08_rule6_comparison.py           → Paper 3 vs Paper 4 + Youden's J
-09_calibration.py                → Isotonic regression (ECE: 0.199→0.123)
+09_calibration.py                → Isotonic regression (ECE: 0.155→0.093)
 10_granger_causality.py          → Bivariate Granger: US PPI → Greek vol
-11_crisis_backtests.py           → GFC 2008 (13M lead) + COVID 2021 (16M lead)
+11_crisis_backtests.py           → GFC 2008 (weak, AUC 0.26) + COVID 2021 (AUC 0.95, short lead)
 12_decision_rules.py             → Adaptive rules R1–R8
-13_economic_value.py             → EUR simulation: saving EUR 4,001,160
+13_economic_value.py             → EUR simulation: saving EUR 2.35M
 14_ablation_study.py             → Component contribution analysis
 15_temporal_shap.py              → Quarterly SHAP evolution
 16_publication_figures.py        → All publication figures
@@ -180,8 +180,8 @@ SEED             = 42
 ENSEMBLE_SEEDS   = [42, 43, 44, 45, 46]
 LOOKBACK         = 6       # months of US history as LSTM input
 LEAD             = 2       # months ahead to predict
-N_FEATURES       = 20      # all features (ablation confirmed)
-OPT_THRESHOLD    = 0.875   # Youden's J optimal
+N_FEATURES       = 20      # 14 SHAP-selected perform equivalently (ablation)
+OPT_THRESHOLD    = 0.953   # Youden's J optimal
 CRISIS_PCT       = 0.75    # P75 for crisis definition
 HIDDEN_SIZE      = 64
 N_LAYERS         = 2
