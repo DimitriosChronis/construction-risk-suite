@@ -5,7 +5,7 @@
 ![Status](https://img.shields.io/badge/Status-Under_Review-yellow)
 ![Python](https://img.shields.io/badge/Python-3.10%2B-blue)
 ![License](https://img.shields.io/badge/License-MIT-lightgrey)
-![Scripts](https://img.shields.io/badge/Scripts-13-orange)
+![Scripts](https://img.shields.io/badge/Analysis_scripts-12-orange)
 
 ---
 
@@ -75,6 +75,8 @@ paper1-profit-erosion/
 ├── requirements.txt
 └── README.md
 ```
+
+> **Script count:** the `src/` folder contains 13 files, of which **12 are the analysis scripts that reproduce the paper** (`01`–`03`, `05`–`13`); `04_generate_figures.py` is a legacy draft retained for reference and is **not** part of the published pipeline.
 
 ---
 
