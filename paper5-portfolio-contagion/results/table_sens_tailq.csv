@@ -1,0 +1,6 @@
+type,0.85,0.9,0.95,role_q090,stable_across_q
+bridge,-0.042,-0.0426,0.0136,receiver,False
+building,-0.035,-0.0122,0.0027,receiver,False
+other,0.0092,-0.0068,0.0027,receiver,False
+pipeline,0.019,0.0308,-0.0118,source,False
+road,0.0488,0.0308,-0.0072,source,False

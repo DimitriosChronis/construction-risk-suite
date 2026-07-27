@@ -1,13 +1,12 @@
 """
-Paper 5 -- QW3: Upgraded AiC-style fig1_framework
-==================================================
-Visual abstract emphasising AUTOMATION FLOW: data ingestion ->
-copula network -> risk metrics -> decision output. Tailored to
-AiC editor's first-glance review (the figure that follows the
-abstract).
+Paper 5 -- fig1_framework (pipeline overview)
+=============================================
+Visual abstract emphasising the automation flow: data ingestion ->
+copula network -> risk metrics -> decision output, with labelled
+inter-layer arrows naming the data object handed to each stage.
 
 Output:
-  results/figures/fig1_framework.{pdf,png}    (replaces v1)
+  results/figures/fig1_framework.{pdf,png}
 """
 
 import os
@@ -26,8 +25,8 @@ plt.rcParams.update({
     "figure.dpi"     : 150,
 })
 
-fig, ax = plt.subplots(figsize=(15, 8))
-ax.set_xlim(0, 16)
+fig, ax = plt.subplots(figsize=(15.5, 8))
+ax.set_xlim(0, 17.2)
 ax.set_ylim(0, 9)
 ax.axis("off")
 
@@ -44,15 +43,15 @@ LAYERS = [
          ("ELSTAT SPC23\n(material price\nindices)",                    "3.7"),
          ("FRED PPI\n(global commodity\nbenchmarks)",                    "7.0"),
          ("EU OpenTender\n+ World Bank IEG\n(external validation)",     "10.3"),
-         ("Cross-country\npanel (17 EU/OECD\ncountries)",               "13.6"),
+         ("Cross-country\npanel (13 EU/OECD\ncountries)",               "13.6"),
      ]},
     {"y": 4.6, "fc": "#FFF8E1", "ec": "#F57F17",
      "title": "LAYER 2  --  COPULA NETWORK + SYSTEM-VAR ANALYTICS",
      "boxes": [
-         ("Rolling pair-Gumbel\nλ_U(t)\n(36-month windows)",            "0.4"),
+         ("Rolling pair-Gumbel\nλ_U(t)\n(24-month windows)",            "0.4"),
          ("Source/Receiver\ndecomposition\n(NET = OUT − IN)",            "3.7"),
          ("Portfolio ES\n+ contingency\nallocation",                     "7.0"),
-         ("LSTM dual-target\nensemble\n(P4 architecture)",              "10.3"),
+         ("LSTM ensemble\n(dual-target,\n5 seeds)",                     "10.3"),
          ("HMM regime\nclassification\n(2-state Gaussian)",             "13.6"),
      ]},
     {"y": 2.6, "fc": "#FFEBEE", "ec": "#C62828",
@@ -94,17 +93,26 @@ for layer in LAYERS:
         ax.text(x + BOX_W / 2, layer["y"] + BOX_H / 2, body,
                 ha="center", va="center", fontsize=8.2)
 
-# ---- Big vertical arrows on right side, between layers ----
-for y_top, y_bot in [(6.6, 5.8), (4.6, 3.8), (2.6, 1.8)]:
-    arr = FancyArrowPatch((15.4, y_top), (15.4, y_bot),
-                          arrowstyle="->", mutation_scale=22,
-                          lw=2.5, color="#37474F")
+# ---- Big vertical arrows on right side, between layers,
+# ----  each labelled with the data object handed to the next layer ----
+FLOW_LABELS = [
+    ((6.6, 5.8), "monthly type-level\ncost returns"),
+    ((4.6, 3.8), "λ_U(t) network, NET flows,\nES, P(crisis)"),
+    ((2.6, 1.8), "CSRI(t) + source/receiver\nroles"),
+]
+for (y_top, y_bot), lab in FLOW_LABELS:
+    arr = FancyArrowPatch((16.7, y_top), (16.7, y_bot),
+                          arrowstyle="-|>", mutation_scale=26,
+                          lw=3.0, color="#37474F")
     ax.add_patch(arr)
+    ax.text(16.5, (y_top + y_bot) / 2, lab,
+            ha="right", va="center", fontsize=7.8, style="italic",
+            color="#37474F")
 
 # ---- Cycle-time annotation ----
 ax.text(8.0, -0.55,
-        "End-to-end cycle: ≤ 5 minutes per portfolio update — "
-        "deterministic, reproducible, no human in the loop",
+        "End-to-end cycle: ≤ 5 minutes per monthly portfolio update — "
+        "deterministic, fully scripted, reproducible",
         ha="center", va="center", fontsize=10, style="italic",
         bbox=dict(boxstyle="round,pad=0.4",
                   facecolor="#FFFDE7", edgecolor="#F57F17", linewidth=1.5))
@@ -116,8 +124,8 @@ ax.text(0.0, -0.55,
         color="#37474F")
 
 # ---- Output stat tag ----
-ax.text(16.0, -0.55,
-        "1,310 projects  •  €4.5 B  •  276 months  •  29 references",
+ax.text(17.2, -0.55,
+        "1,310 contracts  •  €4.51 B  •  Δ.2.2 awards 2014–2024",
         ha="right", va="center", fontsize=8, style="italic",
         color="#37474F")
 

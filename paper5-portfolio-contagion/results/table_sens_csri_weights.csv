@@ -1,0 +1,7 @@
+scheme,w_lambdaU,w_mean_CI,w_max_CI,w_loss_div_ben,corr_with_equal,mean_crisis_minus_stable,exceeds_1sd_2012,exceeds_1sd_2015,exceeds_1sd_2022
+equal (paper),0.25,0.25,0.25,0.25,1.0,1.616,False,False,True
+tilt 2x lambdaU,0.4,0.2,0.2,0.2,0.9974,1.66,False,False,True
+tilt 2x mean_CI,0.2,0.4,0.2,0.2,0.9974,1.66,False,False,True
+tilt 2x max_CI,0.2,0.2,0.4,0.2,0.9978,1.673,False,False,True
+tilt 2x loss_div_ben,0.2,0.2,0.2,0.4,0.9735,1.473,False,False,True
+PCA-1,0.306,0.306,0.307,0.081,0.9767,1.778,False,False,True
