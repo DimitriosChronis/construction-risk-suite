@@ -75,6 +75,20 @@ def fig_bivariate_vs_system():
     _save(fig, "fig_R1_bivariate_vs_system_fevd")
 
 
+def _fmt_p(v):
+    """p-value label matching the manuscript's reporting convention
+    (Table 5): '<0.001' below 0.001; four decimals when within
+    rounding distance of the 0.05 threshold; three decimals otherwise
+    (round-half-up, so 0.1235 -> 0.124 as in the table)."""
+    from decimal import Decimal, ROUND_HALF_UP
+    if v < 0.001:
+        return "<0.001"
+    if abs(v - 0.05) < 0.005:
+        return f"{v:.4f}"
+    return str(Decimal(str(v)).quantize(Decimal("0.001"),
+                                         rounding=ROUND_HALF_UP))
+
+
 def fig_block_exogeneity():
     be = pd.read_csv(os.path.join(TAB_DIR, "c2d_block_exogeneity.csv"))
     fig, ax = plt.subplots(figsize=(9, 4.5))
@@ -88,7 +102,7 @@ def fig_block_exogeneity():
     for i in range(len(be)):
         for j in range(2):
             v = pmat[i, j]
-            ax.text(j, i, f"{v:.3f}", ha="center", va="center",
+            ax.text(j, i, _fmt_p(v), ha="center", va="center",
                     fontsize=10,
                     color="white" if v < 0.05 else "black",
                     fontweight="bold" if v < 0.05 else "normal")

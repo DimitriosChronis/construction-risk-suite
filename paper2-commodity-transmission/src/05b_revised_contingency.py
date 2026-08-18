@@ -22,10 +22,22 @@ Two corrections:
 
 Inputs:
     data/processed/aligned_log_returns.csv
-    results/tables/c2d_system_fevd.csv      (from 04d)
+    results/tables/c2d_system_fevd.csv                (from 04d)
+    results/tables/c2d_bivariate_vs_system_fevd.csv   (from 04d)
 Outputs:
     results/tables/c2_5b_revised_contingency.csv
     results/tables/c2_5b_scaling_comparison.csv
+    results/tables/c2_5b_portfolio_totals.csv
+
+Consistency notes (final-version fix):
+  * The H-month bootstrap VaR is drawn ONCE per Greek series and the
+    same draw feeds both the scaling-comparison table and the
+    contingency table, so that (D)/(B) equals the reported
+    bootstrap-to-sqrt(H) ratio exactly, material by material.
+  * Specification (C) uses the BIVARIATE FEVD share (from 04d's
+    bivariate-vs-system comparison), not the system share, so that
+    (C) and (D) differ as their definitions require.
+  * All totals are computed as sums of the per-material entries.
 """
 
 import os
@@ -41,6 +53,7 @@ DATA_PATH  = os.path.join(SCRIPT_DIR, "..", "data", "processed",
                           "aligned_log_returns.csv")
 TAB_DIR    = os.path.join(SCRIPT_DIR, "..", "results", "tables")
 SYS_FEVD   = os.path.join(TAB_DIR, "c2d_system_fevd.csv")
+BIV_FEVD   = os.path.join(TAB_DIR, "c2d_bivariate_vs_system_fevd.csv")
 
 # Project parameters (from v1 manuscript Section 4.7)
 PROJECT_BUDGET_EUR = 2_300_000          # representative project
@@ -137,11 +150,25 @@ def main():
     print("\n[1] System FEVD loaded:")
     print(fevd_wide.round(3))
 
+    # Bivariate FEVD shares (matched channel) from 04d, used by spec C
+    if not os.path.exists(BIV_FEVD):
+        raise FileNotFoundError(
+            f"Bivariate FEVD comparison not found at {BIV_FEVD}. "
+            "Run 04d_system_varx.py first.")
+    biv_df = pd.read_csv(BIV_FEVD).set_index("Greek_series")
+    biv_share = biv_df["Bivariate_FEVD"].astype(float).to_dict()
+    print("\n[1b] Bivariate FEVD (matched channel) loaded:",
+          {k: round(v, 3) for k, v in biv_share.items()})
+
     # -------------------------------------------------------------------------
     # 2. SCALING COMPARISON: sqrt-H vs bootstrap H-period
+    #    (ONE bootstrap draw per series; reused in step 3 so that the
+    #     contingency ratios (D)/(B) equal ratio_boot_to_sqrtH exactly)
     # -------------------------------------------------------------------------
     print("\n[2] Scaling comparison: sqrt-H vs H-period block bootstrap")
     scale_rows = []
+    var_sqrtH_by = {}
+    var_boot_by = {}
     for gr in GR_VARS:
         sigma_1m = float(df[gr].std())
         # sqrt-H tail (one-sided)
@@ -150,6 +177,8 @@ def main():
         cum_paths = moving_block_bootstrap_paths(
             df[gr], N_BOOT, HORIZON_MONTHS, BLOCK_LEN, rng)
         var_boot = -float(np.quantile(cum_paths, ALPHA))
+        var_sqrtH_by[gr] = var_sqrtH
+        var_boot_by[gr] = var_boot
         scale_rows.append({
             "Greek_series":   gr,
             "sigma_1m":       round(sigma_1m, 5),
@@ -167,45 +196,38 @@ def main():
     # -------------------------------------------------------------------------
     # 3. CONTINGENCY UNDER 4 SPECIFICATIONS
     # -------------------------------------------------------------------------
-    # Spec A : v1 published (bivariate FEVD + sqrt-H)
+    # Spec A : v1 published (bivariate FEVD + sqrt-H)   -- textbook benchmark
     # Spec B : system FEVD + sqrt-H        (R1-M2 fix on FEVD)
-    # Spec C : bivariate FEVD + bootstrap   (R3-S4 fix on scaling)
+    # Spec C : bivariate FEVD + bootstrap  (R3-S4 fix on scaling)
     # Spec D : system FEVD + bootstrap     (FULL revision -- preferred)
+    # Contingency = exposure x VaR x sqrt(FEVD share)
+    # (sqrt(FEVD) ~ standard-deviation share; consistent with v1)
     print("\n[3] Contingency under 4 specifications:")
     cont_rows = []
     for gr in GR_VARS:
         matched_us = MATCHED[gr]
-        # FEVD shares
         sys_share = float(fevd_wide.loc[gr, matched_us])
-        # cross-material spillover share (system only)
         sys_cross = float(fevd_wide.loc[gr, [u for u in US_VARS
                                              if u != matched_us]].sum())
         sys_total = sys_share + sys_cross
-        # v1 bivariate FEVD (read from V1_CONTINGENCY back-derivation):
-        # we keep the v1 number as the primary bivariate reference
-        v1_eur = V1_CONTINGENCY.get(gr, np.nan)
+        b_share   = float(biv_share[gr])
+        v1_eur    = V1_CONTINGENCY.get(gr, np.nan)
 
-        # Common per-series weight + budget exposure factor
-        w     = WEIGHTS[gr]
+        w       = WEIGHTS[gr]
         exp_eur = PROJECT_BUDGET_EUR * MATERIAL_SHARE * w
-        sigma = float(df[gr].std())
-        var_sqrtH = 1.645 * sigma * np.sqrt(HORIZON_MONTHS)
-        cum_paths = moving_block_bootstrap_paths(
-            df[gr], N_BOOT, HORIZON_MONTHS, BLOCK_LEN, rng)
-        var_boot = -float(np.quantile(cum_paths, ALPHA))
+        var_sqrtH = var_sqrtH_by[gr]      # same draw as Table (scaling)
+        var_boot  = var_boot_by[gr]
 
-        # FEVD-weighted contingency = exposure x VaR x sqrt(FEVD)
-        # (sqrt(FEVD) ~ standard deviation share; consistent with v1)
-        # We report the matched-only and the matched + cross variants.
         eur_B_match = exp_eur * var_sqrtH * np.sqrt(sys_share)
         eur_B_total = exp_eur * var_sqrtH * np.sqrt(sys_total)
-        eur_C_match = exp_eur * var_boot  * np.sqrt(sys_share)  # cross-mat at biv assumed equal
+        eur_C_match = exp_eur * var_boot  * np.sqrt(b_share)
         eur_D_match = exp_eur * var_boot  * np.sqrt(sys_share)
         eur_D_total = exp_eur * var_boot  * np.sqrt(sys_total)
 
         cont_rows.append({
             "Greek_series":       gr,
             "Matched_US":         matched_us,
+            "FEVD_bivariate_match": round(b_share, 4),
             "FEVD_system_match":  round(sys_share, 4),
             "FEVD_system_cross":  round(sys_cross, 4),
             "EUR_A_v1_published": int(v1_eur) if not np.isnan(v1_eur) else np.nan,
@@ -219,22 +241,26 @@ def main():
     cont_df = pd.DataFrame(cont_rows)
     cont_df.to_csv(os.path.join(TAB_DIR, "c2_5b_revised_contingency.csv"),
                    index=False)
-    print(cont_df[["Greek_series", "Matched_US",
-                   "EUR_A_v1_published",
-                   "EUR_B_sysFEVD_sqrtH",
-                   "EUR_D_sysFEVD_boot",
-                   "EUR_D_total_sysFEVD_boot"]])
+    print(cont_df[["Greek_series", "EUR_A_v1_published",
+                   "EUR_B_sysFEVD_sqrtH", "EUR_C_bivFEVD_boot",
+                   "EUR_D_sysFEVD_boot", "EUR_D_total_sysFEVD_boot"]]
+          .to_string(index=False))
 
     # -------------------------------------------------------------------------
-    # 4. PORTFOLIO TOTALS
+    # 4. PORTFOLIO TOTALS  (all totals = sums of per-material entries)
     # -------------------------------------------------------------------------
     print("\n[4] Portfolio totals (EUR per representative EUR 2.3M project):")
+    four = cont_df["Greek_series"] != "GR_General_Index"
     totals = {
-        "A_v1_published":        cont_df["EUR_A_v1_published"].sum(),
-        "B_sysFEVD_sqrtH":       cont_df["EUR_B_sysFEVD_sqrtH"].sum(),
-        "B_sysFEVD_total_sqrtH": cont_df["EUR_B_sysFEVD_total_sqrtH"].sum(),
-        "D_sysFEVD_boot":        cont_df["EUR_D_sysFEVD_boot"].sum(),
-        "D_total_sysFEVD_boot":  cont_df["EUR_D_total_sysFEVD_boot"].sum(),
+        "A_v1_published_4mat":     cont_df.loc[four, "EUR_A_v1_published"].sum(),
+        "B_sysFEVD_sqrtH_4mat":    cont_df.loc[four, "EUR_B_sysFEVD_sqrtH"].sum(),
+        "B_sysFEVD_sqrtH_5ch":     cont_df["EUR_B_sysFEVD_sqrtH"].sum(),
+        "B_sysFEVD_total_sqrtH":   cont_df["EUR_B_sysFEVD_total_sqrtH"].sum(),
+        "C_bivFEVD_boot_4mat":     cont_df.loc[four, "EUR_C_bivFEVD_boot"].sum(),
+        "C_bivFEVD_boot_5ch":      cont_df["EUR_C_bivFEVD_boot"].sum(),
+        "D_sysFEVD_boot_4mat":     cont_df.loc[four, "EUR_D_sysFEVD_boot"].sum(),
+        "D_sysFEVD_boot_5ch":      cont_df["EUR_D_sysFEVD_boot"].sum(),
+        "D_total_sysFEVD_boot":    cont_df["EUR_D_total_sysFEVD_boot"].sum(),
     }
     for k, v in totals.items():
         v_pct = 100.0 * v / PROJECT_BUDGET_EUR if v == v else np.nan
@@ -242,6 +268,13 @@ def main():
 
     pd.Series(totals, name="EUR_total").to_csv(
         os.path.join(TAB_DIR, "c2_5b_portfolio_totals.csv"))
+
+    # Consistency check: (D)/(B) must equal the scaling ratio per series
+    chk = cont_df.set_index("Greek_series")
+    for gr in GR_VARS:
+        r_tab = float(scale_df.set_index("Greek_series").loc[gr, "ratio_boot_to_sqrtH"])
+        r_con = chk.loc[gr, "EUR_D_sysFEVD_boot"] / chk.loc[gr, "EUR_B_sysFEVD_sqrtH"]
+        print(f"  check {gr:18s} D/B={r_con:.3f}  table ratio={r_tab:.3f}")
 
     print("\n" + "=" * 70)
     print("DONE -- 05b_revised_contingency.py")
