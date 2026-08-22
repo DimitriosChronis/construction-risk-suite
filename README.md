@@ -10,7 +10,7 @@ Email: cv23006@mail.ntua.gr , dimitrischronis7@gmail.com
 
 ## Overview
 
-This monorepo contains the reproducible code for an 8-paper research series on construction cost risk intelligence. The framework applies vine copula models, LSTM ensemble agents, VAR transmission analysis, and Monte Carlo simulation to construction price indices (2000–2024), demonstrating that standard industry risk methods systematically underestimate extreme downside exposure.
+This monorepo contains the reproducible code for an 8-paper research series on construction cost risk intelligence — one paper accepted and in production at the *Journal of Computing in Civil Engineering* (ASCE), four under peer review. The framework applies vine copula models, LSTM ensemble agents, VAR transmission analysis, and Monte Carlo simulation to construction price indices (2000–2024), demonstrating that standard industry risk methods systematically underestimate extreme downside exposure.
 
 **Core thesis:** Independence and Gaussian assumptions used in traditional Monte Carlo ignore tail dependence between construction materials. During systemic crises (2008 GFC, 2021–2022 energy shock), this produces systematic capital shortfalls that propagate across project phases and national borders — and can be quantified, predicted, and, for the materials where a genuine upstream signal exists, automated into explainable early-warning triggers.
 
@@ -21,19 +21,19 @@ This monorepo contains the reproducible code for an 8-paper research series on c
 | # | Title | Status | Folder |
 |---|-------|--------|--------|
 | 1 | From Statistical Error to Profit Erosion: Quantifying Tail Dependence in Construction Cost Overruns Using Gumbel Copulas | Under Review | [`paper1-profit-erosion/`](paper1-profit-erosion/) |
-| 2 | Global Commodity Transmission to European Construction Cost Inflation: A Vine Copula Network Topology and VAR-IRF Analysis | Under Review | [`paper2-commodity-transmission/`](paper2-commodity-transmission/) |
+| 2 | Global Commodity Transmission to European Construction Cost Inflation: A Vine Copula Network Topology and System VARX Analysis | Under Review | [`paper2-commodity-transmission/`](paper2-commodity-transmission/) |
 | 3 | A Data-Driven Decision Support System for Construction Cost Risk Management: Integrating Tail Risk Analytics with Lifecycle-Phased Procurement Planning | Under Review | [`paper3-es-hedging/`](paper3-es-hedging/) |
-| 4 | Real-Time Crisis-Regime Detection for Construction Fuel and Energy Costs: An Explainable LSTM Early-Warning Agent | Under Review | [`paper4-lstm-agent/`](paper4-lstm-agent/) |
+| 4 | Real-Time Crisis-Regime Detection for Construction Fuel and Energy Costs: An Explainable LSTM Early-Warning Agent | **In production — *Journal of Computing in Civil Engineering* (ASCE), DOI [10.1061/JCCEE5/CPENG-8417](https://doi.org/10.1061/JCCEE5/CPENG-8417)** | [`paper4-lstm-agent/`](paper4-lstm-agent/) |
 | 5 | From Public Procurement Data to Procurement Triggers: An Automated Pipeline for Portfolio-Level Construction Cost Risk Monitoring across Public Infrastructure Projects | Under Review | [`paper5-portfolio-contagion/`](paper5-portfolio-contagion/) |
 | 6 | Pan-European Construction Cost Risk Intelligence: Vine Copula-LSTM Validation Across Southern European Markets | In preparation | — |
 | 7 | Multi-Currency Construction Cost Intelligence for Global Megaproject Portfolios: Shanghai Steel, Gulf Construction, and FX Volatility | Planned | — |
 | 8 | A Three-Layer Cascade Theory of Global Construction Cost Crises: Financial Markets, Commodity Networks, and Domestic Prices | Planned | — |
 
-*Note: Journal submission details are omitted during active peer review.*
+*Note: Journal details are shown for accepted papers only and omitted while a paper is under active peer review.*
 
 ---
 
-## Key Results (Papers 1–4)
+## Key Results (Papers 1–5)
 
 | Paper | Key Finding | Value |
 |-------|------------|-------|
@@ -46,6 +46,11 @@ This monorepo contains the reproducible code for an 8-paper research series on c
 | P4 | GFC 2008 detection | Weak (AUC 0.26); 13M nominal lead |
 | P4 | Economic saving vs static rules | EUR 2.35M over 72 months |
 | P4 | False-alarm reduction | 3 vs 9 false alarms |
+| P5 | Crisis tail-dependence amplification (portfolio) | +8.1% (λ_U 0.853→0.922, p<0.001) |
+| P5 | Systemic sources of cost contagion | Roads & pipelines (NET +0.031); stable for q≤0.90 |
+| P5 | CSRI discriminant validity | Registers 2008–09 & 2021–22 commodity/energy stress; quiet in 2012/2015 fiscal crises |
+| P5 | Leak-free LSTM (exogenous macro target) | AUC 0.744 OOS (endogenous target: spurious 1.00 via label leakage) |
+| P5 | Crisis contingency under-provisioning | EUR 19.5M (+1.09%) on EUR 1.79B crisis-period portfolio |
 
 ---
 
@@ -64,9 +69,9 @@ construction-risk-suite/
 │   ├── data/raw/.gitkeep
 │   ├── data/processed/.gitkeep
 │   └── results/.gitkeep
-├── paper2-commodity-transmission/   # VAR/IRF network topology
+├── paper2-commodity-transmission/   # Vine copula network + system VARX
 │   ├── README.md
-│   ├── src/                         # 11 analysis scripts
+│   ├── src/                         # 17 analysis scripts
 │   ├── data/raw/.gitkeep
 │   ├── data/processed/.gitkeep
 │   └── results/.gitkeep
@@ -76,7 +81,7 @@ construction-risk-suite/
 │   ├── data/raw/.gitkeep
 │   ├── data/processed/.gitkeep
 │   └── results/.gitkeep
-└── paper4-lstm-agent/               # LSTM early-warning agent
+├── paper4-lstm-agent/               # LSTM early-warning agent (JCCE, in production)
     ├── README.md
     ├── src/                         # 16 scripts + utils.py
     │   ├── utils.py
@@ -99,6 +104,12 @@ construction-risk-suite/
     ├── data/raw/.gitkeep
     ├── data/processed/.gitkeep
     └── results/.gitkeep
+└── paper5-portfolio-contagion/      # Portfolio contagion + CSRI monitoring
+    ├── README.md
+    ├── src/                         # 20 analysis scripts (01_diavgeia_download ... 20_sensitivity_analysis)
+    ├── data/raw/.gitkeep
+    ├── data/processed/.gitkeep
+    └── results/                     # versioned result tables (CSV)
 ```
 
 ---
@@ -121,6 +132,10 @@ python 07_hedging_quantification.py
 # Run Paper 4 (LSTM Agent) — recommended entry point for ML pipeline
 cd paper4-lstm-agent/src
 python run_all.py        # Runs all 16 scripts sequentially (~90 min)
+
+# Run Paper 5 (Portfolio contagion + CSRI)
+cd paper5-portfolio-contagion/src
+python 01_diavgeia_download.py   # then 02 ... 20 in order
 ```
 
 ---
@@ -234,7 +249,21 @@ fredapi
 
 ## Citation
 
-If you use this code, please cite the relevant paper. Citation details will be updated upon publication.
+If you use this code, please cite the relevant paper. For the LSTM early-warning agent (Paper 4):
+
+```bibtex
+@article{chronis2026lstm,
+  author  = {Chronis, Dimitrios},
+  title   = {Real-Time Crisis-Regime Detection for Construction Fuel and
+             Energy Costs: An Explainable LSTM Early-Warning Agent},
+  journal = {Journal of Computing in Civil Engineering},
+  year    = {2026},
+  doi     = {10.1061/JCCEE5/CPENG-8417},
+  note    = {in press}
+}
+```
+
+Citation details for the remaining papers will be added upon publication.
 
 ---
 
