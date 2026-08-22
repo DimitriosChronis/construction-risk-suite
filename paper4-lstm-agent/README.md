@@ -2,20 +2,21 @@
 
 **An Explainable LSTM Early-Warning Agent**
 
+![Status](https://img.shields.io/badge/Status-In_Production_(ASCE_JCCE)-brightgreen)
+[![DOI](https://img.shields.io/badge/DOI-10.1061%2FJCCEE5%2FCPENG--8417-blue)](https://doi.org/10.1061/JCCEE5/CPENG-8417)
+
 > Chronis, D. (2026). *Real-Time Crisis-Regime Detection for Construction Fuel
-> and Energy Costs: An Explainable LSTM Early-Warning Agent.* Manuscript under
-> review (ASCE *Journal of Computing in Civil Engineering*).
+> and Energy Costs: An Explainable LSTM Early-Warning Agent.* **Journal of
+> Computing in Civil Engineering (ASCE), in press.**
+> DOI: [10.1061/JCCEE5/CPENG-8417](https://doi.org/10.1061/JCCEE5/CPENG-8417)
 
-**Contributions: C6 + C7 + C8**
-
-> **Note on this revision.** All results below come from a strictly **leak-free
-> (point-in-time / causal) re-analysis** of the entire pipeline: the crisis
-> percentile threshold at each month uses only data available up to that month,
-> so no future information enters label construction. The leak-free labels agree
-> with the original global-threshold labels on **97.7%** of months for the
-> headline material, so the framework is validated rather than overturned; the
-> corrected numbers are slightly more conservative and are reported honestly
-> throughout.
+> **Note on label construction.** All results come from a strictly **leak-free
+> (point-in-time / causal)** pipeline: the crisis percentile threshold at each
+> month uses only data available up to that month, so no future information
+> enters label construction. A diagnostic shows the causal labels agree with a
+> naive global-threshold labelling on **97.7%** of months for the headline
+> material; the leak-free numbers are slightly more conservative and are the
+> ones reported throughout (and in the published paper).
 
 ---
 
@@ -261,6 +262,22 @@ statsmodels>=0.14
 ```
 
 Install: `pip install torch shap xgboost scikit-learn pandas numpy matplotlib statsmodels`
+
+---
+
+## Citation
+
+```bibtex
+@article{chronis2026lstm,
+  author  = {Chronis, Dimitrios},
+  title   = {Real-Time Crisis-Regime Detection for Construction Fuel and
+             Energy Costs: An Explainable LSTM Early-Warning Agent},
+  journal = {Journal of Computing in Civil Engineering},
+  year    = {2026},
+  doi     = {10.1061/JCCEE5/CPENG-8417},
+  note    = {in press}
+}
+```
 
 ---
 
