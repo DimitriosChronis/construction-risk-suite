@@ -10,7 +10,7 @@ Email: cv23006@mail.ntua.gr , dimitrischronis7@gmail.com
 
 ## Overview
 
-This monorepo contains the reproducible code for an 8-paper research series on construction cost risk intelligence — one paper accepted and in production at the *Journal of Computing in Civil Engineering* (ASCE), four under peer review. The framework applies vine copula models, LSTM ensemble agents, VAR transmission analysis, and Monte Carlo simulation to construction price indices (2000–2024), demonstrating that standard industry risk methods systematically underestimate extreme downside exposure.
+This monorepo contains the reproducible code for an 8-paper research series on construction cost risk intelligence — two papers accepted and in production (*Journal of Computing in Civil Engineering*, ASCE; *Construction Management and Economics*, Taylor & Francis), three under peer review. The framework applies vine copula models, LSTM ensemble agents, VAR transmission analysis, and Monte Carlo simulation to construction price indices (2000–2024), demonstrating that standard industry risk methods systematically underestimate extreme downside exposure.
 
 **Core thesis:** Independence and Gaussian assumptions used in traditional Monte Carlo ignore tail dependence between construction materials. During systemic crises (2008 GFC, 2021–2022 energy shock), this produces systematic capital shortfalls that propagate across project phases and national borders — and can be quantified, predicted, and, for the materials where a genuine upstream signal exists, automated into explainable early-warning triggers.
 
@@ -21,7 +21,7 @@ This monorepo contains the reproducible code for an 8-paper research series on c
 | # | Title | Status | Folder |
 |---|-------|--------|--------|
 | 1 | From Statistical Error to Profit Erosion: Quantifying Tail Dependence in Construction Cost Overruns Using Gumbel Copulas | Under Review | [`paper1-profit-erosion/`](paper1-profit-erosion/) |
-| 2 | Global Commodity Transmission to European Construction Cost Inflation: A Vine Copula Network Topology and System VARX Analysis | Under Review | [`paper2-commodity-transmission/`](paper2-commodity-transmission/) |
+| 2 | Global Commodity Transmission to European Construction Cost Inflation: A Vine Copula Network Topology and System VARX Analysis | **In production — *Construction Management and Economics* (Taylor & Francis)** | [`paper2-commodity-transmission/`](paper2-commodity-transmission/) |
 | 3 | A Data-Driven Decision Support System for Construction Cost Risk Management: Integrating Tail Risk Analytics with Lifecycle-Phased Procurement Planning | Under Review | [`paper3-es-hedging/`](paper3-es-hedging/) |
 | 4 | Real-Time Crisis-Regime Detection for Construction Fuel and Energy Costs: An Explainable LSTM Early-Warning Agent | **In production — *Journal of Computing in Civil Engineering* (ASCE), DOI [10.1061/JCCEE5/CPENG-8417](https://doi.org/10.1061/JCCEE5/CPENG-8417)** | [`paper4-lstm-agent/`](paper4-lstm-agent/) |
 | 5 | From Public Procurement Data to Procurement Triggers: An Automated Pipeline for Portfolio-Level Construction Cost Risk Monitoring across Public Infrastructure Projects | Under Review | [`paper5-portfolio-contagion/`](paper5-portfolio-contagion/) |
@@ -219,7 +219,7 @@ BOOTSTRAP_REPS   = 500
 | Source | Series | Access | Papers |
 |--------|--------|--------|--------|
 | [ELSTAT SPC23](https://www.statistics.gr/en/statistics/-/publication/SPC23/) | Greek construction cost indices (monthly 2000–2024) | Manual download | 1, 2, 3, 4 |
-| [FRED](https://fred.stlouisfed.org) | US PPIs: Steel (WPU1017), Cement (WPU1321), Fuel (WPU0553), PVC (WPU0911), Brent (DCOILBRENTEU) | API (automated) | 2, 3, 4 |
+| [FRED](https://fred.stlouisfed.org) | US PPIs: Steel (WPU101), Cement (WPU1321), Fuel (WPU0553), PVC/Plastic Pipe (WPU0721), Brent (DCOILBRENTEU) | API (automated) | 2, 3, 4 |
 
 Raw data files are not committed. See [`shared-data/README.md`](shared-data/README.md) for download instructions.
 
