@@ -21,7 +21,7 @@ This monorepo contains the reproducible code for an 8-paper research series on c
 | # | Title | Status | Folder |
 |---|-------|--------|--------|
 | 1 | From Statistical Error to Profit Erosion: Quantifying Tail Dependence in Construction Cost Overruns Using Gumbel Copulas | Under Review | [`paper1-profit-erosion/`](paper1-profit-erosion/) |
-| 2 | Global Commodity Transmission to European Construction Cost Inflation: A Vine Copula Network Topology and System VARX Analysis | **In production — *Construction Management and Economics* (Taylor & Francis)** | [`paper2-commodity-transmission/`](paper2-commodity-transmission/) |
+| 2 | Global Commodity Transmission to European Construction Cost Inflation: A Vine Copula Network Topology and System VARX Analysis | **In production — *Construction Management and Economics* (Taylor & Francis), DOI [10.1080/01446193.2026.2732227](https://doi.org/10.1080/01446193.2026.2732227)** | [`paper2-commodity-transmission/`](paper2-commodity-transmission/) |
 | 3 | A Data-Driven Decision Support System for Construction Cost Risk Management: Integrating Tail Risk Analytics with Lifecycle-Phased Procurement Planning | Under Review | [`paper3-es-hedging/`](paper3-es-hedging/) |
 | 4 | Real-Time Crisis-Regime Detection for Construction Fuel and Energy Costs: An Explainable LSTM Early-Warning Agent | **In production — *Journal of Computing in Civil Engineering* (ASCE), DOI [10.1061/JCCEE5/CPENG-8417](https://doi.org/10.1061/JCCEE5/CPENG-8417)** | [`paper4-lstm-agent/`](paper4-lstm-agent/) |
 | 5 | From Public Procurement Data to Procurement Triggers: An Automated Pipeline for Portfolio-Level Construction Cost Risk Monitoring across Public Infrastructure Projects | Under Review | [`paper5-portfolio-contagion/`](paper5-portfolio-contagion/) |
@@ -259,6 +259,21 @@ If you use this code, please cite the relevant paper. For the LSTM early-warning
   journal = {Journal of Computing in Civil Engineering},
   year    = {2026},
   doi     = {10.1061/JCCEE5/CPENG-8417},
+  note    = {in press}
+}
+```
+
+For the commodity-transmission analysis (Paper 2):
+
+```bibtex
+@article{chronis2026transmission,
+  author  = {Chronis, Dimitrios},
+  title   = {Global Commodity Transmission to European Construction
+             Cost Inflation: A Vine Copula Network Topology and
+             System VARX Analysis},
+  journal = {Construction Management and Economics},
+  year    = {2026},
+  doi     = {10.1080/01446193.2026.2732227},
   note    = {in press}
 }
 ```

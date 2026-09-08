@@ -7,6 +7,7 @@
 > Chronis, D. (2026). *Global Commodity Transmission to European Construction
 > Cost Inflation: A Vine Copula Network Topology and System VARX Analysis.*
 > **Construction Management and Economics (Taylor & Francis), in press.**
+> DOI: [10.1080/01446193.2026.2732227](https://doi.org/10.1080/01446193.2026.2732227)
 
 ---
 
@@ -215,6 +216,7 @@ the joint US block is recommended instead.
              System VARX Analysis},
   journal = {Construction Management and Economics},
   year    = {2026},
+  doi     = {10.1080/01446193.2026.2732227},
   note    = {in press},
   url     = {https://github.com/DimitriosChronis/construction-risk-suite}
 }
