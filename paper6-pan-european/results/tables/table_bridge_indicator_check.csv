@@ -1,0 +1,3 @@
+indicator,n_quarters,pearson,pearson_p,spearman,spearman_p
+COST,105,0.9627,2.564e-60,0.9559,1.264e-56
+PRC_PRR,105,0.8114,9.131e-26,0.8474,4.385e-30

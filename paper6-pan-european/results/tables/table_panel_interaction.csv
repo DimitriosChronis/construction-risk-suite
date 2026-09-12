@@ -1,0 +1,7 @@
+model,term,beta_pp_per_sigma,se,p_value,n
+M1_countryFE,vol_l1,0.1274,0.0208,8.387e-10,2543
+M2_interaction,vol_l1,0.0883,0.0062,1.439e-46,2543
+M2_interaction,vol_x_med,0.0781,0.0291,0.007357,2543
+M3_timeFE,vol_x_med,0.0781,0.0312,0.01233,2543
+M4_HC3,vol_l1,0.0883,0.0456,0.05296,2543
+M4_HC3,vol_x_med,0.0781,0.0659,0.2357,2543

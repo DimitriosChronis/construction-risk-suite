@@ -1,0 +1,4 @@
+panel,n_countries,lambdaU_stable,lambdaU_crisis,amplification,panel_perm_p,granger_sig_share,h4_beta1,h4_beta2_med,h4_beta2_p_cluster
+cost,5,0.1319,0.1686,1.2779,0.1708,1.0,,,
+extended,10,0.1502,0.2076,1.3816,0.1369,0.789,,,
+extended_H4,10,,,,,,0.1044,0.062,0.06009

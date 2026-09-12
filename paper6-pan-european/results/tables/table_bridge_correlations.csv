@@ -1,0 +1,4 @@
+bridge,metric,estimate,p_value,n
+A_csri_vs_sigma6,pearson,0.261,3.283e-05,247
+A_csri_vs_sigma6,spearman,0.2022,0.001403,247
+A_csri_vs_sigma6,kendall,0.1449,0.0006926,247

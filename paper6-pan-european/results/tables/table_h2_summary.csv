@@ -1,0 +1,4 @@
+linkage,cut2_matches_mednorth_pct,silhouette_medNorth,perm_p_medNorth
+ward,0.75,-0.003,0.5724
+average,0.75,-0.003,0.5614
+complete,0.75,-0.003,0.5634

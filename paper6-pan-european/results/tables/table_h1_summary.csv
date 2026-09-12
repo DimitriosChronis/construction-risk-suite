@@ -1,0 +1,3 @@
+window,mean_amplification,pairs_amp_gt_1,pairs_sig_p05,n_pairs,mean_lambdaU_stable,mean_lambdaU_crisis,panel_diff,panel_perm_p
+24,1.4089,21,4,28,0.1568,0.213,0.0563,0.1319
+36,1.5599,24,3,28,0.1583,0.2269,0.0687,0.1518

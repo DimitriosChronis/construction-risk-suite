@@ -1,0 +1,52 @@
+# ============================================================
+#  Paper 6 -- .gitignore
+#  Publish CODE and result tables only. Raw/processed data,
+#  logs, figures, internal planning notes, and the manuscript
+#  are kept LOCAL.
+# ============================================================
+
+# Manuscript -- NOT PUBLISHED
+manuscript/
+
+# Internal planning notes -- NOT PUBLISHED
+NOVELTY_PLAN.md
+DATA_FEASIBILITY.md
+
+# Data -- keep folders only
+data/raw/*
+data/processed/*
+!data/raw/.gitkeep
+!data/processed/.gitkeep
+
+# Logs
+logs/
+
+# Figures regenerate locally
+results/figures/*
+
+# Result tables ARE published (small, derived)
+!results/tables/*.csv
+
+# Python
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+
+# LaTeX artefacts
+*.aux
+*.bbl
+*.log
+*.out
+*.synctex.gz
+
+# OS / IDE
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Superseded v1/v2 scripts -- kept local only
+src/01_fred_eurostat_cci.py
+src/01a_gr_diavgeia.py
+src/01b_pt_base_gov.py
+src/_config.py

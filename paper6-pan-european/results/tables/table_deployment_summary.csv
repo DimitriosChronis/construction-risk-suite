@@ -1,0 +1,18 @@
+script,stage,seconds,status
+01_eurostat_cci.py,ingest: Eurostat API + ELSTAT,31.1,ok
+02_harmonise_panel.py,harmonise: panels + coverage,0.9,ok
+03_volatility_features.py,features: sigma6 + leak-free labels,1.4,ok
+03b_bridge_validation.py,bridge: micro CSRI vs macro CCI,1.8,ok
+04_cross_country_topology.py,H1: rolling pair-Gumbel network,9.2,ok
+04b_h1_subgroups.py,H1: bloc subgroups + endog labels,1.4,ok
+04c_h1_episodes.py,H1: per-episode + bootstrap CI,1.1,ok
+05_granger_network.py,H3: Granger network + DY,2.5,ok
+06_clustering.py,H2: clustering,2.2,ok
+07_ukraine_case_study.py,case: Ukraine 2022,0.8,ok
+08_cross_country_panel.py,H4: panel FE + MED interaction,6.0,ok
+08b_h4_wildboot.py,H4: wild cluster bootstrap,71.2,ok
+10_quarterly_robustness.py,G1: quarterly layer (DE/FR),4.2,ok
+11_indicator_robustness.py,G2: COST subset + extended set,10.3,ok
+12_copula_families.py,G3: copula families,2.3,ok
+09_publication_figures.py,figures (PDF+EPS+PNG),8.0,ok
+99_verify_consistency.py,consistency harness,0.9,ok

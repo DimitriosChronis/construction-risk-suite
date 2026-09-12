@@ -1,0 +1,4 @@
+linkage,cut2_matches_mednorth_pct,silhouette_cut2,silhouette_medNorth,perm_p_medNorth,cluster_assignment
+ward,0.75,0.11,-0.003,0.5724,ES:0|FI:0|GR:0|IE:1|IT:0|LT:1|NL:0|PT:0
+average,0.75,0.11,-0.003,0.5614,ES:0|FI:0|GR:0|IE:1|IT:0|LT:1|NL:0|PT:0
+complete,0.75,0.11,-0.003,0.5634,ES:0|FI:0|GR:0|IE:1|IT:0|LT:1|NL:0|PT:0
