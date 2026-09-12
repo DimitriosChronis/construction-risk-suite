@@ -10,7 +10,7 @@ Email: cv23006@mail.ntua.gr , dimitrischronis7@gmail.com
 
 ## Overview
 
-This monorepo contains the reproducible code for an 8-paper research series on construction cost risk intelligence — two papers accepted and in production (*Journal of Computing in Civil Engineering*, ASCE; *Construction Management and Economics*, Taylor & Francis), three under peer review. The framework applies vine copula models, LSTM ensemble agents, VAR transmission analysis, and Monte Carlo simulation to construction price indices (2000–2024), demonstrating that standard industry risk methods systematically underestimate extreme downside exposure.
+This monorepo contains the reproducible code for an 8-paper research series on construction cost risk intelligence — two papers accepted and in production (*Journal of Computing in Civil Engineering*, ASCE; *Construction Management and Economics*, Taylor & Francis), four under peer review. The framework applies vine copula models, rolling copula networks with generalized spillover analysis, LSTM ensemble agents, VAR transmission analysis, and Monte Carlo simulation to construction price indices (2000–2026), demonstrating that standard industry risk methods systematically underestimate extreme downside exposure — within projects, across procurement portfolios, and across national borders.
 
 **Core thesis:** Independence and Gaussian assumptions used in traditional Monte Carlo ignore tail dependence between construction materials. During systemic crises (2008 GFC, 2021–2022 energy shock), this produces systematic capital shortfalls that propagate across project phases and national borders — and can be quantified, predicted, and, for the materials where a genuine upstream signal exists, automated into explainable early-warning triggers.
 
@@ -25,7 +25,7 @@ This monorepo contains the reproducible code for an 8-paper research series on c
 | 3 | A Data-Driven Decision Support System for Construction Cost Risk Management: Integrating Tail Risk Analytics with Lifecycle-Phased Procurement Planning | Under Review | [`paper3-es-hedging/`](paper3-es-hedging/) |
 | 4 | Real-Time Crisis-Regime Detection for Construction Fuel and Energy Costs: An Explainable LSTM Early-Warning Agent | **In production — *Journal of Computing in Civil Engineering* (ASCE), DOI [10.1061/JCCEE5/CPENG-8417](https://doi.org/10.1061/JCCEE5/CPENG-8417)** | [`paper4-lstm-agent/`](paper4-lstm-agent/) |
 | 5 | From Public Procurement Data to Procurement Triggers: An Automated Pipeline for Portfolio-Level Construction Cost Risk Monitoring across Public Infrastructure Projects | Under Review | [`paper5-portfolio-contagion/`](paper5-portfolio-contagion/) |
-| 6 | Pan-European Construction Cost Risk Intelligence: Vine Copula-LSTM Validation Across Southern European Markets | In preparation | — |
+| 6 | State-Dependent Cross-Border Co-Movement of European Construction Costs: A Copula Network and Spillover Analysis of Eight Euro-Area Countries, 2000–2026 | Under Review | [`paper6-pan-european/`](paper6-pan-european/) |
 | 7 | Multi-Currency Construction Cost Intelligence for Global Megaproject Portfolios: Shanghai Steel, Gulf Construction, and FX Volatility | Planned | — |
 | 8 | A Three-Layer Cascade Theory of Global Construction Cost Crises: Financial Markets, Commodity Networks, and Domestic Prices | Planned | — |
 
@@ -33,7 +33,7 @@ This monorepo contains the reproducible code for an 8-paper research series on c
 
 ---
 
-## Key Results (Papers 1–5)
+## Key Results (Papers 1–6)
 
 | Paper | Key Finding | Value |
 |-------|------------|-------|
@@ -51,6 +51,10 @@ This monorepo contains the reproducible code for an 8-paper research series on c
 | P5 | CSRI discriminant validity | Registers 2008–09 & 2021–22 commodity/energy stress; quiet in 2012/2015 fiscal crises |
 | P5 | Leak-free LSTM (exogenous macro target) | AUC 0.744 OOS (endogenous target: spurious 1.00 via label leakage) |
 | P5 | Crisis contingency under-provisioning | EUR 19.5M (+1.09%) on EUR 1.79B crisis-period portfolio |
+| P6 | Cross-border tail-dependence amplification in crises (8 euro-area countries) | 1.39–1.55× panel-wide (directional); Mediterranean-bloc pairs significant (p=0.004) |
+| P6 | Crisis copula-family shift | Gumbel (upper-tail) best in 25/28 pairs during crises; pooled λ_U ratio 2.74× |
+| P6 | Directional cost-inflation network | 31/56 Granger links survive BH-FDR; Greece top net transmitter (generalized DY) |
+| P6 | 2022 energy shock | Panel tail dependence at its 2000–2026 all-time peak (April 2022); Spain shock 6.4× |
 
 ---
 
@@ -82,34 +86,40 @@ construction-risk-suite/
 │   ├── data/processed/.gitkeep
 │   └── results/.gitkeep
 ├── paper4-lstm-agent/               # LSTM early-warning agent (JCCE, in production)
+│   ├── README.md
+│   ├── src/                         # 16 scripts + utils.py
+│   │   ├── utils.py
+│   │   ├── 01_data_preparation.py
+│   │   ├── 02_lstm_regime_classification.py
+│   │   ├── 03_shap_explanations.py
+│   │   ├── 04_walk_forward_validation.py
+│   │   ├── 05_benchmarks.py
+│   │   ├── 06_bootstrap_auc.py
+│   │   ├── 07_robustness_checks.py
+│   │   ├── 08_rule6_comparison.py
+│   │   ├── 09_calibration.py
+│   │   ├── 10_granger_causality.py
+│   │   ├── 11_crisis_backtests.py
+│   │   ├── 12_decision_rules.py
+│   │   ├── 13_economic_value.py
+│   │   ├── 14_ablation_study.py
+│   │   ├── 15_temporal_shap.py
+│   │   └── 16_publication_figures.py
+│   ├── data/raw/.gitkeep
+│   ├── data/processed/.gitkeep
+│   └── results/.gitkeep
+├── paper5-portfolio-contagion/      # Portfolio contagion + CSRI monitoring
+│   ├── README.md
+│   ├── src/                         # 20 analysis scripts (01_diavgeia_download ... 20_sensitivity_analysis)
+│   ├── data/raw/.gitkeep
+│   ├── data/processed/.gitkeep
+│   └── results/                     # versioned result tables (CSV)
+└── paper6-pan-european/             # Cross-border copula network + spillovers (8 euro-area countries)
     ├── README.md
-    ├── src/                         # 16 scripts + utils.py
-    │   ├── utils.py
-    │   ├── 01_data_preparation.py
-    │   ├── 02_lstm_regime_classification.py
-    │   ├── 03_shap_explanations.py
-    │   ├── 04_walk_forward_validation.py
-    │   ├── 05_benchmarks.py
-    │   ├── 06_bootstrap_auc.py
-    │   ├── 07_robustness_checks.py
-    │   ├── 08_rule6_comparison.py
-    │   ├── 09_calibration.py
-    │   ├── 10_granger_causality.py
-    │   ├── 11_crisis_backtests.py
-    │   ├── 12_decision_rules.py
-    │   ├── 13_economic_value.py
-    │   ├── 14_ablation_study.py
-    │   ├── 15_temporal_shap.py
-    │   └── 16_publication_figures.py
+    ├── src/                         # 20 scripts (ingest 01–03b, analysis 04–13, figures 09, harnesses 97–99, run_all.py)
     ├── data/raw/.gitkeep
     ├── data/processed/.gitkeep
-    └── results/.gitkeep
-└── paper5-portfolio-contagion/      # Portfolio contagion + CSRI monitoring
-    ├── README.md
-    ├── src/                         # 20 analysis scripts (01_diavgeia_download ... 20_sensitivity_analysis)
-    ├── data/raw/.gitkeep
-    ├── data/processed/.gitkeep
-    └── results/                     # versioned result tables (CSV)
+    └── results/tables/              # versioned result tables (CSV)
 ```
 
 ---
@@ -136,6 +146,10 @@ python run_all.py        # Runs all 16 scripts sequentially (~90 min)
 # Run Paper 5 (Portfolio contagion + CSRI)
 cd paper5-portfolio-contagion/src
 python 01_diavgeia_download.py   # then 02 ... 20 in order
+
+# Run Paper 6 (Pan-European copula network + spillovers)
+cd paper6-pan-european/src
+python run_all.py                # full pipeline, ~3 min end-to-end
 ```
 
 ---
@@ -218,8 +232,9 @@ BOOTSTRAP_REPS   = 500
 
 | Source | Series | Access | Papers |
 |--------|--------|--------|--------|
-| [ELSTAT SPC23](https://www.statistics.gr/en/statistics/-/publication/SPC23/) | Greek construction cost indices (monthly 2000–2024) | Manual download | 1, 2, 3, 4 |
-| [FRED](https://fred.stlouisfed.org) | US PPIs: Steel (WPU101), Cement (WPU1321), Fuel (WPU0553), PVC/Plastic Pipe (WPU0721), Brent (DCOILBRENTEU) | API (automated) | 2, 3, 4 |
+| [ELSTAT SPC23](https://www.statistics.gr/en/statistics/-/publication/SPC23/) | Greek construction cost indices (monthly 2000–2026) | Manual download | 1, 2, 3, 4, 6 |
+| [FRED](https://fred.stlouisfed.org) | US PPIs: Steel (WPU101), Cement (WPU1321), Fuel (WPU0553), PVC/Plastic Pipe (WPU0721), Brent (DCOILBRENTEU) | API (automated) | 2, 3, 4, 6 |
+| [Eurostat](https://ec.europa.eu/eurostat) `sts_copi_m` / `sts_copi_q` | Residential construction producer-price / cost indices, EU countries (monthly + quarterly) | Keyless REST API (automated) | 6 |
 
 Raw data files are not committed. See [`shared-data/README.md`](shared-data/README.md) for download instructions.
 
@@ -243,6 +258,7 @@ pandas>=2.0
 numpy>=1.25
 matplotlib>=3.7
 fredapi
+pandas-datareader
 ```
 
 ---
