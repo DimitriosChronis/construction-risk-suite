@@ -4,13 +4,13 @@
 
 Dimitrios Chronis — School of Civil Engineering, National Technical University of Athens (NTUA)
 ORCID: [0009-0001-9557-4175](https://orcid.org/0009-0001-9557-4175)
-Email: cv23006@mail.ntua.gr , dimitrischronis7@gmail.com
+Email: dim.chronis.eng@gmail.com
 
 ---
 
 ## Overview
 
-This monorepo contains the reproducible code for an 8-paper research series on construction cost risk intelligence — two papers accepted and in production (*Journal of Computing in Civil Engineering*, ASCE; *Construction Management and Economics*, Taylor & Francis), four under peer review. The framework applies vine copula models, rolling copula networks with generalized spillover analysis, LSTM ensemble agents, VAR transmission analysis, and Monte Carlo simulation to construction price indices (2000–2026), demonstrating that standard industry risk methods systematically underestimate extreme downside exposure — within projects, across procurement portfolios, and across national borders.
+This monorepo contains the reproducible code for an 8-paper research series on construction cost risk intelligence — one paper published (*Construction Management and Economics*, Taylor & Francis, October 2026), one in press (*Journal of Computing in Civil Engineering*, ASCE), four under peer review. The framework applies vine copula models, rolling copula networks with generalized spillover analysis, LSTM ensemble agents, VAR transmission analysis, and Monte Carlo simulation to construction price indices (2000–2026), demonstrating that standard industry risk methods systematically underestimate extreme downside exposure — within projects, across procurement portfolios, and across national borders.
 
 **Core thesis:** Independence and Gaussian assumptions used in traditional Monte Carlo ignore tail dependence between construction materials. During systemic crises (2008 GFC, 2021–2022 energy shock), this produces systematic capital shortfalls that propagate across project phases and national borders — and can be quantified, predicted, and, for the materials where a genuine upstream signal exists, automated into explainable early-warning triggers.
 
@@ -20,16 +20,16 @@ This monorepo contains the reproducible code for an 8-paper research series on c
 
 | # | Title | Status | Folder |
 |---|-------|--------|--------|
-| 1 | From Statistical Error to Profit Erosion: Quantifying Tail Dependence in Construction Cost Overruns Using Gumbel Copulas | Under Review | [`paper1-profit-erosion/`](paper1-profit-erosion/) |
-| 2 | Global Commodity Transmission to European Construction Cost Inflation: A Vine Copula Network Topology and System VARX Analysis | **In production — *Construction Management and Economics* (Taylor & Francis), DOI [10.1080/01446193.2026.2732227](https://doi.org/10.1080/01446193.2026.2732227)** | [`paper2-commodity-transmission/`](paper2-commodity-transmission/) |
-| 3 | A Data-Driven Decision Support System for Construction Cost Risk Management: Integrating Tail Risk Analytics with Lifecycle-Phased Procurement Planning | Under Review | [`paper3-es-hedging/`](paper3-es-hedging/) |
-| 4 | Real-Time Crisis-Regime Detection for Construction Fuel and Energy Costs: An Explainable LSTM Early-Warning Agent | **In production — *Journal of Computing in Civil Engineering* (ASCE), DOI [10.1061/JCCEE5/CPENG-8417](https://doi.org/10.1061/JCCEE5/CPENG-8417)** | [`paper4-lstm-agent/`](paper4-lstm-agent/) |
-| 5 | From Public Procurement Data to Procurement Triggers: An Automated Pipeline for Portfolio-Level Construction Cost Risk Monitoring across Public Infrastructure Projects | Under Review | [`paper5-portfolio-contagion/`](paper5-portfolio-contagion/) |
-| 6 | State-Dependent Cross-Border Co-Movement of European Construction Costs: A Copula Network and Spillover Analysis of Eight Euro-Area Countries, 2000–2026 | Under Review | [`paper6-pan-european/`](paper6-pan-european/) |
-| 7 | Multi-Currency Construction Cost Intelligence for Global Megaproject Portfolios: Shanghai Steel, Gulf Construction, and FX Volatility | Planned | — |
-| 8 | A Three-Layer Cascade Theory of Global Construction Cost Crises: Financial Markets, Commodity Networks, and Domestic Prices | Planned | — |
+| 1 | Copula-based tail-dependence quantification of construction cost overruns (Gumbel / R-vine) | Under Review | [`paper1-profit-erosion/`](paper1-profit-erosion/) |
+| 2 | Global Commodity Transmission to European Construction Cost Inflation: A Vine Copula Network Topology and System VARX Analysis | **Published — *Construction Management and Economics* (Taylor & Francis), DOI [10.1080/01446193.2026.2732227](https://doi.org/10.1080/01446193.2026.2732227)** | [`paper2-commodity-transmission/`](paper2-commodity-transmission/) |
+| 3 | Tail-risk decision support for construction procurement (Expected Shortfall, lifecycle phasing, hedging) | Under Review | [`paper3-es-hedging/`](paper3-es-hedging/) |
+| 4 | Real-Time Crisis-Regime Detection for Construction Fuel and Energy Costs: An Explainable LSTM Early-Warning Agent | **In press — *Journal of Computing in Civil Engineering* (ASCE), DOI [10.1061/JCCEE5/CPENG-8417](https://doi.org/10.1061/JCCEE5/CPENG-8417)** | [`paper4-lstm-agent/`](paper4-lstm-agent/) |
+| 5 | Automated portfolio-level cost-risk monitoring from public procurement data | Under Review | [`paper5-portfolio-contagion/`](paper5-portfolio-contagion/) |
+| 6 | Cross-border co-movement of European construction costs (copula network + spillover analysis) | Under Review | [`paper6-pan-european/`](paper6-pan-european/) |
+| 7 | Multi-currency construction cost intelligence for global megaproject portfolios | Planned | — |
+| 8 | A three-layer cascade view of global construction cost crises | Planned | — |
 
-*Note: Journal details are shown for accepted papers only and omitted while a paper is under active peer review.*
+*Note: To protect double-blind peer review, full titles and journal details appear only for accepted/published papers; papers under review are listed by topic. Full titles are restored upon acceptance.*
 
 ---
 
@@ -65,8 +65,6 @@ construction-risk-suite/
 ├── README.md
 ├── .gitignore
 ├── requirements.txt
-├── shared-data/
-│   └── README.md                    # ELSTAT + FRED data source guide
 ├── paper1-profit-erosion/           # Gumbel copula tail risk
 │   ├── README.md
 │   ├── src/                         # 12 analysis scripts
@@ -236,7 +234,7 @@ BOOTSTRAP_REPS   = 500
 | [FRED](https://fred.stlouisfed.org) | US PPIs: Steel (WPU101), Cement (WPU1321), Fuel (WPU0553), PVC/Plastic Pipe (WPU0721), Brent (DCOILBRENTEU) | API (automated) | 2, 3, 4, 6 |
 | [Eurostat](https://ec.europa.eu/eurostat) `sts_copi_m` / `sts_copi_q` | Residential construction producer-price / cost indices, EU countries (monthly + quarterly) | Keyless REST API (automated) | 6 |
 
-Raw data files are not committed. See [`shared-data/README.md`](shared-data/README.md) for download instructions.
+Raw data files are not committed. Download instructions are given in each paper folder's README; all series are re-downloadable from the public sources above.
 
 ---
 
@@ -290,7 +288,7 @@ For the commodity-transmission analysis (Paper 2):
   journal = {Construction Management and Economics},
   year    = {2026},
   doi     = {10.1080/01446193.2026.2732227},
-  note    = {in press}
+  note    = {advance online publication}
 }
 ```
 

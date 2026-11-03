@@ -1,12 +1,10 @@
-# Paper 5 — From Public Procurement Data to Procurement Triggers
+# Paper 5 — Portfolio-Level Cost-Risk Monitoring from Public Procurement Data
 
-**An Automated Pipeline for Portfolio-Level Construction Cost Risk
-Monitoring across Public Infrastructure Projects**
+**An automated pipeline for construction cost risk monitoring across
+public infrastructure project portfolios**
 
-> Chronis, D. (2026). *From Public Procurement Data to Procurement
-> Triggers: An Automated Pipeline for Portfolio-Level Construction Cost
-> Risk Monitoring across Public Infrastructure Projects*.
-> Submitted to *Automation in Construction*.
+> Chronis, D. (2026). Manuscript under double-blind peer review — the
+> full title and journal details are withheld until acceptance.
 
 This folder contains the complete, reproducible analysis pipeline for
 the paper. **Code and result tables only** — raw/processed data and the
@@ -142,15 +140,17 @@ data are regenerated locally and not versioned).
 
 ## Citation
 
+The manuscript is under double-blind peer review; citation details
+(full title, journal, DOI) will be added upon acceptance. Until then,
+please cite this repository:
+
 ```bibtex
-@article{chronis2026procurement,
+@misc{chronis2026procurement,
   author  = {Chronis, Dimitrios},
-  title   = {From Public Procurement Data to Procurement Triggers:
-             An Automated Pipeline for Portfolio-Level Construction
-             Cost Risk Monitoring across Public Infrastructure
-             Projects},
-  journal = {Automation in Construction},
+  title   = {construction-risk-suite: Paper 5 --- portfolio-level
+             cost-risk monitoring from public procurement data
+             (code repository)},
   year    = {2026},
-  note    = {submitted}
+  url     = {https://github.com/dimitrioschronis/construction-risk-suite}
 }
 ```

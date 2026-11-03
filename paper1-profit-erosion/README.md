@@ -1,4 +1,4 @@
-# Quantifying Tail Dependence in Construction Cost Overruns
+# Paper 1 — Copula Tail Risk in Construction Cost Overruns
 
 > **A fully reproducible Monte Carlo framework using Gumbel and regular-vine (R-vine) copulas to quantify systemic tail risk—and its monetary cost—in construction project portfolios.**
 
@@ -11,7 +11,8 @@
 
 ## Paper
 
-**"From Statistical Error to Profit Erosion: Quantifying Tail Dependence in Construction Cost Overruns"**
+Manuscript under double-blind peer review — the full title and journal
+details are withheld until acceptance and will be restored here then.
 Dimitrios Chronis — School of Civil Engineering, National Technical University of Athens (NTUA)
 
 ---

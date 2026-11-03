@@ -1,8 +1,9 @@
-# Paper 3: A Data-Driven Decision Support System for Construction Cost Risk Management
+# Paper 3: Tail-Risk Decision Support for Construction Procurement
 
-**Integrating Tail Risk Analytics with Lifecycle-Phased Procurement Planning**
+**Expected Shortfall analytics, lifecycle phasing, and hedging quantification**
 
-> Chronis, D. (2026). *A Data-Driven Decision Support System for Construction Cost Risk Management: Integrating Tail Risk Analytics with Lifecycle-Phased Procurement Planning*. Manuscript under review.
+> Chronis, D. (2026). Manuscript under double-blind peer review — the
+> full title and journal details are withheld until acceptance.
 
 **Contributions: C3 + C4 + C5**
 
@@ -192,14 +193,16 @@ Net simulation-based hedge benefit: **EUR 45,923** (1.6% of crisis ES) — econo
 
 ## Citation
 
+The manuscript is under double-blind peer review; citation details
+(full title, journal, DOI) will be added upon acceptance. Until then,
+please cite this repository:
+
 ```bibtex
-@article{chronis2026paper3,
+@misc{chronis2026paper3,
   author  = {Chronis, Dimitrios},
-  title   = {A Data-Driven Decision Support System for Construction
-             Cost Risk Management: Integrating Tail Risk Analytics
-             with Lifecycle-Phased Procurement Planning},
+  title   = {construction-risk-suite: Paper 3 --- tail-risk decision
+             support for construction procurement (code repository)},
   year    = {2026},
-  note    = {Manuscript under review},
   url     = {https://github.com/dimitrioschronis/construction-risk-suite}
 }
 ```

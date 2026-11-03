@@ -1,13 +1,11 @@
-# Paper 6 — State-Dependent Cross-Border Co-Movement of European Construction Costs
+# Paper 6 — Cross-Border Co-Movement of European Construction Costs
 
-**A Copula Network and Spillover Analysis of Eight Euro-Area Countries, 2000–2026**
+**A copula network and spillover analysis of eight euro-area countries**
 
 ![Status](https://img.shields.io/badge/Status-Under_Review-yellow)
 
-> Chronis, D. (2026). *State-Dependent Cross-Border Co-Movement of
-> European Construction Costs: A Copula Network and Spillover Analysis
-> of Eight Euro-Area Countries, 2000–2026.* Manuscript under review.
-> Journal details are withheld during active peer review.
+> Chronis, D. (2026). Manuscript under double-blind peer review — the
+> full title and journal details are withheld until acceptance.
 
 This folder contains the complete, reproducible analysis pipeline.
 **Code and result tables only** — raw data are re-downloadable from
