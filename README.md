@@ -21,7 +21,7 @@ This monorepo contains the reproducible code for an 8-paper research series on c
 | # | Title | Status | Folder |
 |---|-------|--------|--------|
 | 1 | Copula-based tail-dependence quantification of construction cost overruns (Gumbel / R-vine) | Under Review | [`paper1-profit-erosion/`](paper1-profit-erosion/) |
-| 2 | Global Commodity Transmission to European Construction Cost Inflation: A Vine Copula Network Topology and System VARX Analysis | **Published — *Construction Management and Economics* (Taylor & Francis), DOI [10.1080/01446193.2026.2732227](https://doi.org/10.1080/01446193.2026.2732227)** | [`paper2-commodity-transmission/`](paper2-commodity-transmission/) |
+| 2 | Global Commodity Transmission to European Construction Cost Inflation: A Vine Copula Network Topology and System VARX Analysis | **Published (Open Access) — *Construction Management and Economics* 44(12), 1086–1106, DOI [10.1080/01446193.2026.2732227](https://doi.org/10.1080/01446193.2026.2732227)** | [`paper2-commodity-transmission/`](paper2-commodity-transmission/) |
 | 3 | Tail-risk decision support for construction procurement (Expected Shortfall, lifecycle phasing, hedging) | Under Review | [`paper3-es-hedging/`](paper3-es-hedging/) |
 | 4 | Real-Time Crisis-Regime Detection for Construction Fuel and Energy Costs: An Explainable LSTM Early-Warning Agent | **In press — *Journal of Computing in Civil Engineering* (ASCE), DOI [10.1061/JCCEE5/CPENG-8417](https://doi.org/10.1061/JCCEE5/CPENG-8417)** | [`paper4-lstm-agent/`](paper4-lstm-agent/) |
 | 5 | Automated portfolio-level cost-risk monitoring from public procurement data | Under Review | [`paper5-portfolio-contagion/`](paper5-portfolio-contagion/) |
@@ -287,8 +287,10 @@ For the commodity-transmission analysis (Paper 2):
              System VARX Analysis},
   journal = {Construction Management and Economics},
   year    = {2026},
-  doi     = {10.1080/01446193.2026.2732227},
-  note    = {advance online publication}
+  volume  = {44},
+  number  = {12},
+  pages   = {1086--1106},
+  doi     = {10.1080/01446193.2026.2732227}
 }
 ```
 
